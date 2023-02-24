@@ -1,6 +1,6 @@
 {
-  "logs-apache.access-1.8.0-modified": {
-    "description": "Pipeline for parsing Apache HTTP Server access logs. Requires the geoip and user_agent plugins.\n\nModified by Karl-Henrik ",
+  "logs-bookface-apache.access": {
+    "description": "Pipeline for parsing Apache HTTP Server access logs. Requires the geoip and user_agent plugins.\nEdited for use on the bookface service used by DCSG2003 - Robuste og skalerbare tjenester at NTNU Gjøvik",
     "processors": [
       {
         "pipeline": {
@@ -29,16 +29,17 @@
       {
         "grok": {
           "field": "event.original",
-          "pattern_definitions": {
-            "ADDRESS_LIST": "(%{IP})(\"?,?\\s*(%{IP}))*"
-          },
-          "ignore_missing": true,
           "patterns": [
+            "%{IPORHOST:source.address} (?:%{IPORHOST:source.forwarded_for}|-) %{USER:auth.user} %{USER:auth.unknown} \\[%{HTTPDATE:apache.access.time}\\] \"%{WORD:http.request.method} %{URIPATHPARAM:http.request.path} HTTP/%{NUMBER:http.version}\" %{NUMBER:http.response.status_code:long} %{NUMBER:http.response.body.bytes:long} \"%{DATA:http.request.referrer}\" \"%{DATA:user_agent.original}\" %{NUMBER:http.response.time:int}",
             "%{IPORHOST:source.address} %{USER:auth.user} %{USER:auth.unknown} \\[%{HTTPDATE:apache.access.time}\\] \"%{WORD:http.request.method} %{URIPATHPARAM:http.request.path} HTTP/%{NUMBER:http.version}\" %{NUMBER:http.response.status_code:long} %{NUMBER:http.response.body.bytes:long} \"%{DATA:http.request.referrer}\" \"%{DATA:user_agent.original}\" %{NUMBER:response_time:int}",
             "(%{IPORHOST:destination.domain} )?%{IPORHOST:source.address} - %{DATA:user.name} \\[%{HTTPDATE:apache.access.time}\\] \"(?:%{WORD:http.request.method} %{DATA:_tmp.url_orig} HTTP/%{NUMBER:http.version}|-)?\" %{NUMBER:http.response.status_code:long} (?:%{NUMBER:http.response.body.bytes:long}|-)( \"%{DATA:http.request.referrer}\")?( \"%{DATA:user_agent.original}\")?( X-Forwarded-For=\"%{ADDRESS_LIST:apache.access.remote_addresses}\")?",
             "%{IPORHOST:source.address} - %{DATA:user.name} \\[%{HTTPDATE:apache.access.time}\\] \"-\" %{NUMBER:http.response.status_code:long} -",
             "\\[%{HTTPDATE:apache.access.time}\\] %{IPORHOST:source.address} %{DATA:apache.access.ssl.protocol} %{DATA:apache.access.ssl.cipher} \"%{WORD:http.request.method} %{DATA:_tmp.url_orig} HTTP/%{NUMBER:http.version}\" (-|%{NUMBER:http.response.body.bytes:long})"
-          ]
+          ],
+          "pattern_definitions": {
+            "ADDRESS_LIST": "(%{IP})(\"?,?\\s*(%{IP}))*"
+          },
+          "ignore_missing": true
         }
       },
       {
