@@ -42,14 +42,30 @@ For example:
 
 ``
 curl -X PUT \
-"https://localhost:9200/_ingest/pipeline/logs-apache.access-bookface" \
+"https://localhost:9200/_ingest/pipeline/logs-bookface-apache.error" \
 -H 'Content-Type: application/json' \
 -u elastic:superuser \
 --cacert elasticsearch-ca.pem \
--d @pipeline.json
+-d @logs_bookface_apache_error.json
   
 (We're in the same folder as the ca.pem here)
 ``
 
 
 
+## INSTALLING AN INTEGRATION TO ELASTIC Maybe?
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X POST "https://192.168.130.186:5601/api/fleet/epm/packages/apache/1.8.0" \
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' -d \
+'{
+  "force": true
+}'
+
+
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X POST "https://localhost:5601/api/fleet/epm/packages/system/1.24.3" \
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' -d '{"force": true}'
+
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X POST "https://localhost:5601/api/fleet/epm/packages/elastic_agent/1.5.1" \
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' -d '{"force": true}'
