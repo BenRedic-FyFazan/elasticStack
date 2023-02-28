@@ -80,10 +80,8 @@ sudo systemctl enable filebeat
 ./scripts/certificates/elkCerts_setup_pt1.sh
 ./scripts/certificates/elkCerts_setup_pt2.sh
 
-# Integrations
-cd /home/ubuntu
-
 ## Wait for server to be up
+cd /home/ubuntu
 MAX_WAIT=300
 start_time=$(date +%s)
 while true; do
@@ -99,8 +97,16 @@ while true; do
   sleep 10
 done
 
+# Integrations
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_base.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_apache.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_cockroachDB.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_memcached.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_haproxy.sh
+
+# Creating policies
+cd /home/ubuntu
+./elkStack_DCSG2003/elkStack/scripts/policy/create_policies.sh
+
+# Adding integrations to policies
+./elkStack_DCSG2003/elkStack/scripts/policy/add_integrations_to_policy.sh
