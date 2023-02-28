@@ -85,7 +85,7 @@ cd /home/ubuntu
 MAX_WAIT=300
 start_time=$(date +%s)
 while true; do
-  response=$(curl -u elastic2:superuser --cacert elasticsearch-ca.pem --silent --head --request GET "https://localhost:5601/api/status")
+  response=$(curl -u elastic:superuser --cacert elasticsearch-ca.pem --silent --head --request GET "https://localhost:5601/api/status")
   if [[ $response == *"200 OK"* ]]; then
     break
   fi
