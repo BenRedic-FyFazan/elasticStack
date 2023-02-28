@@ -1,5 +1,5 @@
 {
-  "policy_id": "55e77a40-b77a-11ed-a59e-95a4167c990d",
+  "policy_id": "72341630-b77b-11ed-a59e-95a4167c990d",
   "package": {
     "name": "apache",
     "version": "1.8.0"
@@ -77,8 +77,7 @@
       "enabled": true,
       "vars": {
         "hosts": [
-          "http://127.0.0.1",
-          "http://127.0.0.1:49001"
+          "http://127.0.0.1"
         ]
       },
       "streams": {
