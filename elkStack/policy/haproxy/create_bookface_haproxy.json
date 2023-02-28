@@ -1,0 +1,10 @@
+{
+  "id": "bookface-haproxy-policy",
+  "name": "bookface-haproxy",
+  "description": "Harvests logs and metrics from the haproxy load balancer",
+  "namespace": "default",
+  "monitoring_enabled": [
+    "logs",
+    "metrics"
+  ]
+}
