@@ -82,11 +82,11 @@ sudo systemctl enable filebeat
 
 ## Integrations
 cd /home/ubuntu
-./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_base.sh
-./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_apache.sh
-./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_cockroachDB.sh
-./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_memcached.sh
-./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_haproxy.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integration_base.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integration_apache.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integration_cockroachDB.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integration_memcached.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integration_haproxy.sh
 
 
 
