@@ -1,5 +1,5 @@
 {
-  "policy_id": "72341630-b77b-11ed-a59e-95a4167c990d",
+  "policy_id": "bookface-apache-policy",
   "package": {
     "name": "apache",
     "version": "1.8.0"

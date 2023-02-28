@@ -1,6 +1,7 @@
 {
+  "id": "bookface-apache-policy",
   "name": "bookface-apache",
-  "description": "",
+  "description": "Harvests logs and metrics from the apache webservers hosting bookface",
   "namespace": "default",
   "monitoring_enabled": [
     "logs",
