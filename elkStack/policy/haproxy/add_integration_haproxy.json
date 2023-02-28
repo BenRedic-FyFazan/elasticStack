@@ -1,0 +1,70 @@
+{
+  "policy_id": "bookface-haproxy-policy",
+  "package": {
+    "name": "haproxy",
+    "version": "1.5.0"
+  },
+  "name": "haproxy-1",
+  "description": "",
+  "namespace": "default",
+  "inputs": {
+    "haproxy-logfile": {
+      "enabled": true,
+      "streams": {
+        "haproxy.log": {
+          "enabled": true,
+          "vars": {
+            "paths": [
+              "/var/log/haproxy.log"
+            ],
+            "tags": [
+              "haproxy-log"
+            ],
+            "preserve_original_event": false
+          }
+        }
+      }
+    },
+    "haproxy-syslog": {
+      "enabled": true,
+      "streams": {
+        "haproxy.log": {
+          "enabled": true,
+          "vars": {
+            "syslog_host": "localhost",
+            "syslog_port": 9001,
+            "tags": [
+              "forwarded",
+              "haproxy-log"
+            ],
+            "preserve_original_event": false
+          }
+        }
+      }
+    },
+    "haproxy-haproxy/metrics": {
+      "enabled": true,
+      "vars": {
+        "hosts": [
+          "tcp://127.0.0.1:14567"
+        ],
+        "username": "admin",
+        "password": "admin"
+      },
+      "streams": {
+        "haproxy.info": {
+          "enabled": true,
+          "vars": {
+            "period": "10s"
+          }
+        },
+        "haproxy.stat": {
+          "enabled": true,
+          "vars": {
+            "period": "10s"
+          }
+        }
+      }
+    }
+  }
+}

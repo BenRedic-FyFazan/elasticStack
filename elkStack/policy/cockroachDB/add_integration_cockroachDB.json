@@ -1,0 +1,32 @@
+{
+  "policy_id": "bookface-cockroachDB-policy",
+  "package": {
+    "name": "cockroachdb",
+    "version": "1.1.0"
+  },
+  "name": "cockroachdb-1",
+  "description": "",
+  "namespace": "default",
+  "inputs": {
+    "status-prometheus/metrics": {
+      "enabled": true,
+      "streams": {
+        "cockroachdb.status": {
+          "enabled": true,
+          "vars": {
+            "period": "10s",
+            "metrics_path": "/_status/vars",
+            "metrics_filters.exclude": [],
+            "metrics_filters.include": [],
+            "ssl.certificate_authorities": []
+          }
+        }
+      }
+    }
+  },
+  "vars": {
+    "hosts": [
+      "localhost:8080"
+    ]
+  }
+}
