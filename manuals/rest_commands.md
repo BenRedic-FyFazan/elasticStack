@@ -80,9 +80,6 @@ curl -X PUT \
 
 
 
-
-
-
 ## Integrations:
 ### List available integrations + status of integrations:
 (We use jq to put the output in a file and make it easier to read for humans)
@@ -124,3 +121,38 @@ curl -u elastic:superuser --cacert elasticsearch-ca.pem \
 }'
 ``
 
+# Policies 
+
+### Listing all policies
+To list all available policies we run the following:
+``
+curl -u [User]:[Password] --cacert [Certificate Authority] \
+-X GET "[KibanaUrl]/api/fleet/epm/packages" -H 'kbn-xsrf: true' \
+| jq '.' > integrationList.json
+``
+
+For example:
+``
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X GET "https://localhost:5601/api/fleet/agent_policies" -H 'kbn-xsrf: true' \
+| jq '.' > policyList.json
+``
+
+
+And we can get a specific policy via "https://localhost:5601/api/fleet/agent_policies/{agent_policy_ID}"
+
+for example: 
+``
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X GET "https://localhost:5601/api/fleet/agent_policies/d953b9a0-b682-11ed-a59e-95a4167c990d" -H 'kbn-xsrf: true' \
+| jq '.' > policy.json
+``
+
+
+### Uploading a policy:
+
+``
+curl -u elastic:superuser --cacert elasticsearch-ca.pem \
+-X POST "https://localhost:5601/api/fleet/agent_policies?sys_monitoring=true" \
+-H "Content-Type: application/json" -H "kbn-xsrf: true" -d @policy.json
+``
