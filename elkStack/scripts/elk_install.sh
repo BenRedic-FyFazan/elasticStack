@@ -76,21 +76,31 @@ sudo filebeat setup --index-managementsudo filebeat setup \
 sudo systemctl daemon-reload
 sudo systemctl enable filebeat
 
-## Certificates
+# Certificates
 ./scripts/certificates/elkCerts_setup_pt1.sh
 ./scripts/certificates/elkCerts_setup_pt2.sh
 
-## Integrations
+# Integrations
 cd /home/ubuntu
+
+## Wait for server to be up
+MAX_WAIT=300
+start_time=$(date +%s)
+while true; do
+  response=$(curl -u elastic2:superuser --cacert elasticsearch-ca.pem --silent --head --request GET "https://localhost:5601/api/status")
+  if [[ $response == *"200 OK"* ]]; then
+    break
+  fi
+  current_time=$(date +%s)
+  if (( current_time - start_time >= MAX_WAIT )); then
+    echo "Timeout waiting for server to become available"
+    exit 1
+  fi
+  sleep 10
+done
+
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_base.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_apache.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_cockroachDB.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_memcached.sh
 ./elkStack_DCSG2003/elkStack/scripts/integrations/integration_haproxy.sh
-
-
-
-
-
-
-
