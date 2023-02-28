@@ -81,11 +81,12 @@ sudo systemctl enable filebeat
 ./scripts/certificates/elkCerts_setup_pt2.sh
 
 ## Integrations
-./scripts/integrations/integrations_base.sh
-./scripts/integrations/integrations_apache.sh
-./scripts/integrations/integrations_cockroachDB.sh
-./scripts/integrations/integrations_memcached.sh
-./scripts/integrations/integrations_haproxy.sh
+cd /home/ubuntu
+./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_base.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_apache.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_cockroachDB.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_memcached.sh
+./elkStack_DCSG2003/elkStack/scripts/integrations/integrations_haproxy.sh
 
 
 
