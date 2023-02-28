@@ -1,3 +1,14 @@
+# Testing SSL/TLS
+
+``
+sudo openssl s_client -connect [IP]:[port] -CAfile [Path to ...ca.pem]
+``
+
+For example:
+``
+sudo openssl s_client -connect 10.212.175.148:9200 -CAfile /home/ubuntu/instance/elasticsearch-ca.pem
+``
+
 # Pipeline related:
 
 ### downloading a pipeline from elasticsearch/kibana:

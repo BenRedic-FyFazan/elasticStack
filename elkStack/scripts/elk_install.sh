@@ -51,23 +51,18 @@ sudo cp code/elasticSearch/elasticsearch.yml /etc/elasticsearch/elasticsearch.ym
 sudo cp code/elasticSearch/jvm_heap_size.options /etc/elasticsearch/jvm.options.d/jvm_heap_size.options
 #sudo systemctl restart elasticsearch
 
-# Logstash install and config
+# Logstash install
 sudo apt-get install logstash -y
 sudo systemctl daemon-reload
 sudo systemctl enable logstash
 
-# Kibana config
+# Kibana install
 sudo apt-get install kibana -y 
 sudo systemctl daemon-reload
 sudo systemctl enable kibana
 
-## Disabled for now
-#cd /home/ubuntu/elkStack_DCSG2003/elkStack/
-#sudo rm /etc/kibana/kibana.yml
-#sudo cp code/kibana/kibana.yml /etc/kibana/kibana.yml
-#sudo systemctl restart kibana
-
-# Filebeat config
+# Filebeat install and config
+## Might not be functional as it isn't really used atm
 sudo apt-get install filebeat -y
 cd /home/ubuntu/elkStack_DCSG2003/elkStack/
 sudo rm /etc/filebeat/filebeat.yml
@@ -82,16 +77,16 @@ sudo systemctl daemon-reload
 sudo systemctl enable filebeat
 
 ## Certificates
-#cd /home/ubuntu/elkStack_DCSG2003/elkStack
-./elkCerts_setup_pt1.sh
-./elkCerts_setup_pt2.sh
+./scripts/certificates/elkCerts_setup_pt1.sh
+./scripts/certificates/elkCerts_setup_pt2.sh
 
+## Integrations
+./scripts/integrations/integrations_base.sh
+./scripts/integrations/integrations_apache.sh
+./scripts/integrations/integrations_cockroachDB.sh
+./scripts/integrations/integrations_memcached.sh
+./scripts/integrations/integrations_haproxy.sh
 
-## Disabling for easier install
-# sudo systemctl start elasticsearch
-# sudo systemctl start logstash
-# sudo systemctl start kibana
-# sudo systemctl start filebeat
 
 
 

@@ -1,0 +1,225 @@
+id: d953b9a0-b682-11ed-a59e-95a4167c990d
+revision: 2
+outputs:
+  default:
+    type: elasticsearch
+    hosts:
+      - 'http://10.212.175.148:9200'
+    ssl.certificate_authorities: ["/home/ubuntu/instance/elasticsearch-ca.pem"]
+    username: 'elastic'
+    password: 'superuser'
+output_permissions:
+  default:
+    _elastic_agent_monitoring:
+      indices:
+        - names:
+            - logs-elastic_agent.apm_server-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.apm_server-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.auditbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.auditbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.cloudbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.cloudbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.elastic_agent-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.endpoint_security-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.endpoint_security-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.filebeat_input-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.filebeat_input-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.filebeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.filebeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.fleet_server-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.fleet_server-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.heartbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.heartbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.metricbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.metricbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.osquerybeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.osquerybeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-elastic_agent.packetbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-elastic_agent.packetbeat-default
+          privileges:
+            - auto_configure
+            - create_doc
+    _elastic_agent_checks:
+      cluster:
+        - monitor
+    c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463:
+      indices:
+        - names:
+            - logs-apache.access-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - logs-apache.error-default
+          privileges:
+            - auto_configure
+            - create_doc
+        - names:
+            - metrics-apache.status-default
+          privileges:
+            - auto_configure
+            - create_doc
+agent:
+  download:
+    sourceURI: 'https://artifacts.elastic.co/downloads/'
+  monitoring:
+    enabled: true
+    use_output: default
+    namespace: default
+    logs: true
+    metrics: true
+inputs:
+  - id: logfile-apache-c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+    name: apache-bookface
+    revision: 1
+    type: logfile
+    use_output: default
+    meta:
+      package:
+        name: apache
+        version: 1.8.0
+    data_stream:
+      namespace: default
+    package_policy_id: c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+    streams:
+      - id: logfile-apache.access-c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+        data_stream:
+          dataset: apache.access
+          type: logs
+        paths:
+          - /var/log/apache2/access.log*
+          - /var/log/apache2/other_vhosts_access.log*
+          - /var/log/httpd/access_log*
+        tags:
+          - apache-access
+        exclude_files:
+          - .gz$
+      - id: logfile-apache.error-c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+        data_stream:
+          dataset: apache.error
+          type: logs
+        paths:
+          - /var/log/apache2/error.log*
+          - /var/log/httpd/error_log*
+        exclude_files:
+          - .gz$
+        tags:
+          - apache-error
+        processors:
+          - add_locale: null
+  - id: apache/metrics-apache-c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+    name: apache-bookface
+    revision: 1
+    type: apache/metrics
+    use_output: default
+    meta:
+      package:
+        name: apache
+        version: 1.8.0
+    data_stream:
+      namespace: default
+    package_policy_id: c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+    streams:
+      - id: apache/metrics-apache.status-c5b2b91e-07ba-4ceb-b5f3-e4996bc4f463
+        data_stream:
+          dataset: apache.status
+          type: metrics
+        metricsets:
+          - status
+        hosts:
+          - 'http://127.0.0.1:49001'
+        period: 30s
+        server_status_path: /server-status

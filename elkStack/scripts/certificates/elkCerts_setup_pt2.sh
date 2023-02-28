@@ -1,4 +1,5 @@
-‹#!/bin/bash -x
+#!/bin/bash -x
+
 ## Required for keytool
 sudo apt install -y openjdk-17-jre-headless 
 ## Getting ip address to variable
@@ -30,6 +31,9 @@ printf 'y\nadmin1\n' | sudo ./bin/elasticsearch-keystore add xpack.security.http
 sudo mv ./kibana/elasticsearch-ca.pem /etc/elasticsearch/elasticsearch-ca.pem
 sudo chmod 664 /etc/elasticsearch/elasticsearch-ca.pem
 sudo cp /etc/elasticsearch/elasticsearch-ca.pem /etc/kibana/elasticsearch-ca.pem
+
+# Adding ca to home directory
+sudo cp /etc/elasticsearch/elasticsearch-ca.pem /home/ubuntu/elasticsearch-ca.pem
 
 ## STARTING ELASTIC
 sudo systemctl daemon-reload
