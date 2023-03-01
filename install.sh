@@ -37,7 +37,7 @@ export policy=/home/ubuntu/elkStack_DCSG2003/elkStack/policy    # Directory for 
 export api_auth="$elastic_SU:$elastic_SU_PW"                    # API endpoint authentication
 
 # API endpoints
-export api_fleet="https://localhost:5601/api/fleet"
+export api_fleet="https://127.0.0.1:5601/api/fleet"
 
 # Installing elkStack
 $scripts/elkInstall/elasticsearch.sh
@@ -53,7 +53,7 @@ $scripts/certificates/elkCerts_setup_pt2.sh
 MAX_WAIT=300
 start_time=$(date +%s)
 while true; do
-  response=$(curl -u $elastic_SU:$elastic_SU_PW --cacert $ca --silent --head --request GET "https://localhost:5601/api/status")
+  response=$(curl -u $elastic_SU:$elastic_SU_PW --cacert $ca --silent --head --request GET "https://127.0.0.1:5601/api/status")
   if [[ $response == *"200 OK"* ]]; then
     break
   fi
