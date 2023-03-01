@@ -20,7 +20,7 @@ printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
 sudo unzip $usrElastic/elasticsearch-ssl-http.zip -d $usrElastic 
 sudo mv $usrElastic/elasticsearch/http.p12 $etcElastic/http.p12
 sudo chmod 664 $etcElastic/http.p12
-sudo cp $etcElastic/http.p12 $etcElastic/http.p12
+sudo cp $etcElastic/http.p12 $etcKibana/http.p12
 
 # Moving, setting rights and copying elasticsearch-ca.pem 
 sudo mv $usrElastic/kibana/elasticsearch-ca.pem $etcElastic/elasticsearch-ca.pem
@@ -66,10 +66,10 @@ echo "elasticsearch.password: ${kibana_U_PW}" | sudo tee -a $etcKibana/kibana.ym
 echo "server.port: 5601" | sudo tee -a $etcKibana/kibana.yml
 echo "server.host: 0.0.0.0" | sudo tee -a $etcKibana/kibana.yml
 echo "server.ssl.enabled: true" | sudo tee -a $etcKibana/kibana.yml
-echo "server.ssl.keystore.path: /etc/kibana/http.p12" | sudo tee -a $etcKibana/kibana.yml
+echo "server.ssl.keystore.path: ${etcKibana}/http.p12" | sudo tee -a $etcKibana/kibana.yml
 echo "server.ssl.keystore.password: ${cert_http_PW}" | sudo tee -a $etcKibana/kibana.yml
 echo "elasticsearch.hosts: https://${ip4}:9200" | sudo tee -a $etcKibana/kibana.yml
-echo "elasticsearch.ssl.certificateAuthorities: /etc/kibana/elasticsearch-ca.pem" | sudo tee -a $etcKibana/kibana.yml
+echo "elasticsearch.ssl.certificateAuthorities: ${etcKibana}/elasticsearch-ca.pem" | sudo tee -a $etcKibana/kibana.yml
 echo "xpack.encryptedSavedObjects.encryptionKey: 'salkdjfhasldfkjhasdlfkjhasdflkasjdfhslkajfhasldkfjhasdlaksdjfh'" | sudo tee -a $etcKibana/kibana.yml
 
 ## STARTING KIBANA
