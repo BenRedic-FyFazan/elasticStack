@@ -8,7 +8,6 @@ printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
 "${ca_p12}" "${ca_PW}" "${ip4}" "${cert_http_PW}" "${cert_http_PW}" \
 | sudo $usrElastic/bin/elasticsearch-certutil http
 
-
 ## This doesn't seem to be possible with http mode
 #sudo $usrElastic/bin/elasticsearch-certutil http \
 #--ca-cert $usrElastic/elastic-stack-ca.p12 \
@@ -59,7 +58,7 @@ fi
 # Setting new passwords and adding to keystores
 printf 'y\n%s\n%s\n' "${elastic_SU_PW}" "${elastic_SU_PW}" | sudo $usrElastic/bin/elasticsearch-reset-password --username $elastic_SU -i
 printf 'y\n%s\n%s\n' "${kibana_U_PW}" "${kibana_U_PW}" | sudo $usrElastic/bin/elasticsearch-reset-password --username $kibana_U -i
-sudo $usrKibana/bin/kibana-keystore create ## Might possibly require user input
+#sudo $usrKibana/bin/kibana-keystore create ## Might possibly require user input -update: installer takes care of it... probably
 sudo chown root:kibana $usrKibana/bin/kibana-keystore
 echo "${kibana_U_PW}" | sudo $usrKibana/bin/kibana-keystore add elasticsearch.password --stdin
 
