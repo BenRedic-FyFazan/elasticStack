@@ -17,18 +17,16 @@ printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
 #--out $usrElastic/elasticsearch-ssl-http.zip 
 
 # Unzipping, moving, setting rights and copying http.p12
-sudo unzip elasticsearch-ssl-http.zip 
-sudo mv $usrElastic/elasticsearch/http.p12 /etc/elasticsearch/http.p12
-sudo chmod 664 /etc/elasticsearch/http.p12
-sudo cp /etc/elasticsearch/http.p12 /etc/kibana/http.p12
+sudo unzip $usrElastic/elasticsearch-ssl-http.zip 
+sudo mv $usrElastic/elasticsearch/http.p12 $etcElastic/http.p12
+sudo chmod 664 $etcElastic/http.p12
+sudo cp $etcElastic/http.p12 $etcElastic/http.p12
 
 # Moving, setting rights and copying elasticsearch-ca.pem 
-sudo mv ./kibana/elasticsearch-ca.pem /etc/elasticsearch/elasticsearch-ca.pem
-sudo chmod 664 /etc/elasticsearch/elasticsearch-ca.pem
-sudo cp /etc/elasticsearch/elasticsearch-ca.pem /etc/kibana/elasticsearch-ca.pem
-
-# Adding ca to project repo home directory
-sudo cp /etc/elasticsearch/elasticsearch-ca.pem $ca
+sudo mv $usrElastic/kibana/elasticsearch-ca.pem $etcElastic/elasticsearch-ca.pem
+sudo chmod 664 $etcElastic/elasticsearch-ca.pem
+sudo cp $etcElastic/elasticsearch-ca.pem $etcKibana/elasticsearch-ca.pem
+sudo cp $etcElastic/elasticsearch-ca.pem $ca
 
 ## Starting and verifying that elastic is running.
 sudo systemctl daemon-reload
@@ -63,16 +61,16 @@ sudo chown root:kibana $usrKibana/bin/kibana-keystore
 echo "${kibana_U_PW}" | sudo $usrKibana/bin/kibana-keystore add elasticsearch.password --stdin
 
 # kibana.yml config
-echo "elasticsearch.username: ${kibana_U}" | sudo tee -a /etc/kibana/kibana.yml
-echo "elasticsearch.password: ${kibana_U_PW}" | sudo tee -a /etc/kibana/kibana.yml
-echo "server.port: 5601" | sudo tee -a /etc/kibana/kibana.yml
-echo "server.host: 0.0.0.0" | sudo tee -a /etc/kibana/kibana.yml
-echo "server.ssl.enabled: true" | sudo tee -a /etc/kibana/kibana.yml
-echo "server.ssl.keystore.path: /etc/kibana/http.p12" | sudo tee -a /etc/kibana/kibana.yml
-echo "server.ssl.keystore.password: ${cert_http_PW}" | sudo tee -a /etc/kibana/kibana.yml
-echo "elasticsearch.hosts: https://${ip4}:9200" | sudo tee -a /etc/kibana/kibana.yml
-echo "elasticsearch.ssl.certificateAuthorities: /etc/kibana/elasticsearch-ca.pem" | sudo tee -a /etc/kibana/kibana.yml
-echo "xpack.encryptedSavedObjects.encryptionKey: 'salkdjfhasldfkjhasdlfkjhasdflkasjdfhslkajfhasldkfjhasdlaksdjfh'" | sudo tee -a /etc/kibana/kibana.yml
+echo "elasticsearch.username: ${kibana_U}" | sudo tee -a $etcKibana/kibana.yml
+echo "elasticsearch.password: ${kibana_U_PW}" | sudo tee -a $etcKibana/kibana.yml
+echo "server.port: 5601" | sudo tee -a $etcKibana/kibana.yml
+echo "server.host: 0.0.0.0" | sudo tee -a $etcKibana/kibana.yml
+echo "server.ssl.enabled: true" | sudo tee -a $etcKibana/kibana.yml
+echo "server.ssl.keystore.path: /etc/kibana/http.p12" | sudo tee -a $etcKibana/kibana.yml
+echo "server.ssl.keystore.password: ${cert_http_PW}" | sudo tee -a $etcKibana/kibana.yml
+echo "elasticsearch.hosts: https://${ip4}:9200" | sudo tee -a $etcKibana/kibana.yml
+echo "elasticsearch.ssl.certificateAuthorities: /etc/kibana/elasticsearch-ca.pem" | sudo tee -a $etcKibana/kibana.yml
+echo "xpack.encryptedSavedObjects.encryptionKey: 'salkdjfhasldfkjhasdlfkjhasdflkasjdfhslkajfhasldkfjhasdlaksdjfh'" | sudo tee -a $etcKibana/kibana.yml
 
 ## STARTING KIBANA
 sudo systemctl daemon-reload

@@ -21,8 +21,6 @@ xpack.security.transport.ssl.truststore.secure_password --stdin
 echo "${cert_PW}" | sudo $usrElastic/bin/elasticsearch-keystore add -f \
 xpack.security.http.ssl.keystore.secure_password --stdin
 
-sudo $usrElastic/bin/elasticsearch-keystore create xpack.security.http.ssl.truststore.secure_password
-
 echo "${cert_PW}" | sudo $usrElastic/bin/elasticsearch-keystore add -f \
 xpack.security.http.ssl.truststore.secure_password --stdin
 

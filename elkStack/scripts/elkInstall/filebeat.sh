@@ -7,7 +7,7 @@ sudo cp $elkStack/code/filebeat/filebeat.yml /etc/filebeat/filebeat.yml
 sudo filebeat modules enable system
 
 ## loading filebeat index
-sudo filebeat setup --index-managementsudo filebeat setup \
+sudo filebeat setup \
  --index-management -E output.logstash.enabled=false \
 -E 'output.elasticsearch.hosts=["0.0.0.0:9200"]'
 sudo systemctl daemon-reload
