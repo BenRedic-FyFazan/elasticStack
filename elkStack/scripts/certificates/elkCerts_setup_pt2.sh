@@ -17,7 +17,7 @@ printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
 #--out $usrElastic/elasticsearch-ssl-http.zip 
 
 # Unzipping, moving, setting rights and copying http.p12
-sudo unzip $usrElastic/elasticsearch-ssl-http.zip 
+sudo unzip $usrElastic/elasticsearch-ssl-http.zip -d $usrElastic 
 sudo mv $usrElastic/elasticsearch/http.p12 $etcElastic/http.p12
 sudo chmod 664 $etcElastic/http.p12
 sudo cp $etcElastic/http.p12 $etcElastic/http.p12
