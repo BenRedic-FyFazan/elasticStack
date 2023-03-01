@@ -2,14 +2,16 @@
 #### SET PASSWORDS AND USERS, PLEASE CHANGE VALUES IF YOU WANT NON-DEFAULT
 export elastic_SU_PW="superuser"
 export kibana_U_PW="kibanauser"
-export ca_PW="admin1"
-export cert_PW="admin1"
-export cert_http_PW="admin1"
 #### NO MORE CONFIG FOR USERS AFTER THIS
 
-#Users
+# Users
 export elastic_SU="elastic"                                            # Default elastic superuser
 export kibana_U="kibana_system"                                        # Kibana system user
+
+# Cert passwords
+export ca_PW="admin1"                                                  # Password for Certificate Authority
+export cert_PW="admin1"                                                # Password for SSL/TLS Certificate
+export cert_http_PW="admin1"                                           # Password for HTTP certificate
 
 # Installing dependencies, setting java runtime environment and pulling git repo
 sudo apt-get update && sudo apt-get install -y git ca-certificates curl gnupg lsb-release 
