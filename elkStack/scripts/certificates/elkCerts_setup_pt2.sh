@@ -4,8 +4,9 @@
 export ca_p12=/usr/share/elasticsearch/elastic-stack-ca.p12
 
 ## DON'T TOUCH WITHOUT GOING THROUGH THE TOOL AT THE SAME TIME!!
-printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
-"${ca_p12}" "${ca_PW}" "${ip4}" "${cert_http_PW}" "${cert_http_PW}" \
+#printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n\ny\nn\n%s\n%s\n\n' \
+printf 'n\ny\n%s\n%s\n5y\nn\n\ny\n%s\n%s\n\ny\nn\n%s\n%s\n\n' \
+"${ca_p12}" "${ca_PW}" "${ip4}" "${ip_local}" "${cert_http_PW}" "${cert_http_PW}" \
 | sudo $usrElastic/bin/elasticsearch-certutil http
 
 ## This doesn't seem to be possible with http mode

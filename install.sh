@@ -21,6 +21,7 @@ sudo git clone https://github.com/BenRedic-FyFazan/elkStack_DCSG2003.git
 
 # various variables
 export ip4=$(/sbin/ip -o -4 addr list ens3 | awk '{print $4}' | cut -d/ -f1) # Fetches IP address of ens3
+export ip_local="127.0.0.1"                                     # localhost
 export home=/home/ubuntu                                        # Home folder
 export elkStack=/home/ubuntu/elkStack_DCSG2003/elkStack         # "root" of project
 export ca=/home/ubuntu/elkStack_DCSG2003/elasticsearch-ca.pem   # Certificate authority (generate midways)
