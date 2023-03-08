@@ -33,34 +33,34 @@ export api="https://127.0.0.1:9200"
 # Index lifecycle
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_ilm/policy/bf-ilm" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json' 
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/index_lifecycle/bf-ilm.json
 
 # Component templates
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_component_template/bf.map.server" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json' 
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/component_template/bf.map.server.json
 
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_component_template/bf.map.time_msg" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json'
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/component_template/bf.map.time_msg.json
 
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_component_template/bf.set.ilm" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json'
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/component_template/bf.set.ilm.json
 
 # ingest pipeline
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_ingest/pipeline/logs-bf.servers" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json'
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/ingest_pipeline/logs-bf.servers.json
 
 # Index template
 curl -u $api_auth --cacert $ca \
 -X PUT "${api}/_index_template/logs-bookface.server" \
--H 'kbn-xsrf: true' -H 'Content-Type: application/json'
+-H 'kbn-xsrf: true' -H 'Content-Type: application/json' \
 -d @$elkStack/index_template/logs-bookface.server.json
 
