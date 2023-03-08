@@ -1,0 +1,29 @@
+{
+  "template": {
+    "mappings": {
+      "properties": {
+        "bf": { 
+          "properties": {
+            "servers": {
+              "type": "nested",
+              "properties": {
+                "name": {"type":"keyword"},
+                "ip": {
+                  "properties": {
+                    "imt3003": {
+                      "type": "ip"
+                    }
+                  }
+                },
+                "status": {"type": "keyword"}
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "_meta": {
+    "description": "Mappings for the server status fetched from openstack "
+  }
+}

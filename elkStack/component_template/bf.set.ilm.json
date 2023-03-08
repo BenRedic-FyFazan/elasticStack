@@ -1,0 +1,10 @@
+{
+  "template": {
+    "settings": {
+      "index.lifecycle.name": "bookface-ilm"
+    }
+  },
+  "_meta": {
+    "description": "Settings for ILM"
+  }
+}

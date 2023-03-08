@@ -1,0 +1,11 @@
+/var/log/bookface/openstack_servers.log {
+    hourly
+    missingok
+    rotate 24
+    compress
+    delaycompress
+    notifempty
+    create 644 ubuntu ubuntu
+    dateext
+    dateformat -%H:%M-%d.%m.%Y
+}

@@ -1,0 +1,37 @@
+{
+  "description": "Pipeline for the bf.servers logs",
+  "processors": [
+    {
+      "foreach": {
+        "field": "bf.servers",
+        "processor": {
+          "set": {
+            "description": "Parses the bf.servers object array. Creates a field for every VM name and appends the status and hostname fields to it.",
+            "field": "bf.server.{{_ingest._value.name}}",
+            "value": {
+              "status": "{{_ingest._value.status}}",
+              "hostname": "{{_ingest._value.name}}"
+            }
+          }
+        }
+      }
+    },
+    {
+      "foreach": {
+        "field": "bf.servers",
+        "processor": {
+          "set": {
+            "description": "Appends the IP array from the bf.servers array to the VM's field.",
+            "field": "bf.server.{{_ingest._value.name}}.ip",
+            "copy_from": "_ingest._value.ip.imt3003"
+          }
+        }
+      }
+    },
+    {
+      "remove": {
+        "field": "bf.servers"
+      }
+    }
+  ]
+}
