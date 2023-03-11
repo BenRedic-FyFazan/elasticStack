@@ -1,5 +1,5 @@
 {
-  "description": "Pipeline for the bf.servers logs",
+  "description": "Pipeline for the bf.server logs",
   "processors": [
     {
       "foreach": {

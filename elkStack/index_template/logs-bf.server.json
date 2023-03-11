@@ -1,5 +1,5 @@
 {
-  "index_patterns": ["logs-bookface.server*"],
+  "index_patterns": ["logs-bf.server*"],
   "data_stream": {},
   "composed_of": ["bf.map.time_msg", "bf.map.server", "bf.set.ilm"], 
   "priority": 500,
@@ -9,7 +9,7 @@
   },
   "template": {
     "settings": {
-      "index.default_pipeline": "logs-bf.servers"
+      "index.default_pipeline": "bf.server"
     }
   }
 }
