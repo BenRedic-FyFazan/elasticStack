@@ -1,0 +1,30 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "data": {
+    "url": {
+      "%context%": true,
+      "%timefield%": "@timestamp",
+      "index": ".ds-logs-bookface.server-*",
+      "body": {
+        "size": 1,
+        "sort": [
+          {
+            "@timestamp": {
+              "order": "desc"
+            }
+          }
+        ]
+      }
+    },
+    "format": {
+      "property": "hits.hits[0]._source"
+    }
+  },
+ "mark": "text",
+  "encoding": {
+    "text": {
+      "field": "bf.server.name"
+      //"type": "String"
+    }
+  }
+}

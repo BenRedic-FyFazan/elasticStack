@@ -1,0 +1,22 @@
+PUT _index_template/logs-bookface.server
+{
+  "index_patterns": [
+    "logs-bookface.server*"
+  ],
+  "data_stream": {},
+  "priority": 300,
+  "template": {
+    "mappings": {
+      "properties": {
+        "timestamp": {
+          "type": "date",
+          "format": "strict_date_time"
+        },
+        "server": {
+          "type": "nested"
+        }
+      }
+    }
+  },
+  "version": 1
+}
