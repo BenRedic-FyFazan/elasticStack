@@ -1,6 +1,7 @@
 #!/bin/bash -x
 
 #Run this to guarantee that openstack commands can be run
+openstack_auth_location="$HOME/elasticStack/client/manager/openstack_auth.txt"
 openstack_auth=$(cat "$openstack_auth_location")
 source "$openstack_auth"
 
