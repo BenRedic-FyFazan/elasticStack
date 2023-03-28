@@ -1,30 +1,23 @@
 #!/bin/bash -x
 
-#Run this to guarantee that openstack commands can be run
+# Run this to guarantee that openstack commands can be run
 openstack_auth_location="$HOME/elasticStack/client/manager/openstack_auth.txt"
 openstack_auth=$(cat "$openstack_auth_location")
 source "$openstack_auth"
 
-# Set the log file path
-LOG_FILE="/var/log/bookface/bf_uc_reports.log"
-
-# Fetch the JSON file
 json=$(uc reports)
 
-# Generate a timestamp
-timestamp=$(date +"%Y-%m-%dT%H:%M:%S.%3N%z")
+# Groups the nested objects in the received JSON by their "type" value then
+# iterates through the objects, extracts individual reports and appends it to a file corresponding to its type
+grouped_json=$(echo "$json" | jq 'reduce .Reports[] as $item ({}; .[$item.type] += [$item])')
+for type in $(echo "$grouped_json" | jq -r 'keys[]'); do
 
-# Read the JSON file
-content=$(echo $json)
+    LOG_FILE="/var/log/bookface/bf_uc_reports_${type}.log"
+    objects=$(echo "$grouped_json" | jq --arg type "$type" '.[$type]')
 
-# Rename 'uc-api-version' to 'api-version'
-content=$(echo $content | jq 'with_entries(if .key == "uc-api-version" then .key = "api-version" else . end)')
+    # Iterates through each object, renames "check_time" to "@timestamp", and then appends them.
+    echo "$objects" | jq -rc '.[] | with_entries(if .key == "check_time" then .key = "@timestamp" else . end) | @json' | while IFS= read -r object; do
+        echo "$object" >> "$LOG_FILE"
+    done
 
-# Group the objects by their "type" value and create an array for each type
-grouped_json=$(echo $content | jq 'reduce .Reports[] as $item ({}; .[$item.type] += [$item | del(.type)])')
-
-# Create a new JSON object with the desired structure
-final_json=$(echo $grouped_json | jq --arg ts "$timestamp" --argjson content "$content" '. as $grouped | { "api-version": $content["api-version"], "Reports": $grouped } + { "@timestamp": $ts }')
-
-# Write the updated JSON object to a file
-echo $final_json >> "$LOG_FILE"
+done

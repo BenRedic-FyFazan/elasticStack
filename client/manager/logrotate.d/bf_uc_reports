@@ -1,11 +1,11 @@
-/var/log/bookface/bf_uc_reports.log {
+/var/log/bookface/bf_uc_reports_*.log {
     daily
     missingok
     rotate 10
     compress
     delaycompress
     notifempty
-    create 644 ubuntu ubuntu
+    create 644 root ubuntu
     dateext
     dateformat %Y.%m.%d.%H:%M
     extension .gz

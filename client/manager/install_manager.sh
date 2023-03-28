@@ -13,7 +13,7 @@ bf_uc_reports_script="$HOME/elasticStack/client/manager/script/bf_uc_reports.sh"
 
 # Installation
 echo "Installing nessecary dependencies..."
-sudo apt-get update && sudo apt-get install jq python3-openstackclient
+sudo apt-get update -y && sudo apt-get install -y jq python3-openstackclient
 
 ## Finds openstack_rc file and stores it to openstack_auth.txt
 echo "Locating openstack_rc file..."
@@ -42,11 +42,14 @@ fi
 
 ## Making the logfiles
 sudo mkdir $log_loc
+sudo chown root:ubuntu $log_loc
+sudo chmod 664 $log_loc
+sudo chmod +x $log_loc
 sudo touch $log_uc_reports
-sudo chown ubuntu:ubuntu $log_uc_reports 
+sudo chown root:ubuntu $log_uc_reports 
 sudo chmod 664 $log_uc_reports
 sudo touch $log_os_servers
-sudo chown ubuntu:ubuntu $log_os_servers
+sudo chown root:ubuntu $log_os_servers
 sudo chmod 664 $log_os_servers
 
 ## Adding logrotation
