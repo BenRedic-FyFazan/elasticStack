@@ -1,4 +1,4 @@
-/var/log/bookface/openstack_servers.log {
+/var/log/bookface/bf_os_servers.log {
     hourly
     missingok
     rotate 24
@@ -7,5 +7,6 @@
     notifempty
     create 644 ubuntu ubuntu
     dateext
-    dateformat -%H:%M-%d.%m.%Y
+    dateformat %Y.%m.%d.%H:%M
+    extension .gz
 }
