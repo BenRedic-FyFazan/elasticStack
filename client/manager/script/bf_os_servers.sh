@@ -1,6 +1,8 @@
 #!/bin/bash
 #Run this to gurarantee that openstack commands can be run
-source /home/ubuntu/DCSG2003_V23_group44-openrc.sh;
+openstack_auth=$(cat "$openstack_auth_location")
+source "$openstack_auth"
+
 # Set the log file path
 LOG_FILE="/var/log/bookface/bf_os_servers.log"
 
