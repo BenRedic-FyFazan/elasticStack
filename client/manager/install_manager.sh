@@ -18,9 +18,7 @@ else
     echo "$openstack_auth"
     echo "Verifying connection to openstack..."
 
-    ## Checks for token issues. 
-    ## If provided credentials and connection info is correct, "openstack token issue" has exit status of zero.
-    ## Otherwise has a non-zero exit status  
+    ## Checks for token issues. exit status 0 = success. 
     openstack_auth=$(cat "$openstack_auth_location")
     source "$openstack_auth"
     if openstack token issue >/dev/null 2>&1; then
