@@ -5,7 +5,8 @@
     compress
     delaycompress
     notifempty
-    create 644 root ubuntu
+    create 660 root ubuntu
+    su root ubuntu
     dateext
     dateformat %Y.%m.%d.%H:%M
     extension .gz
