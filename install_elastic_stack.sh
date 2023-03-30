@@ -4,6 +4,7 @@
 keypairName="Manager-ssh-keypair"
 ssh_pub="~/.ssh/id_rsa.pub"
 ssh_key="~/.ssh/id_rsa"
+ssh_options="-o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null"
 vmName="elasticStack"
 vmImage="db1bc18e-81e3-477e-9067-eecaa459ec33"      #Ubuntu Server 22.04 LTS (Jammy Jellyfish) amd54
 vmFlavor="4b570035-f1bb-4fc4-bd39-30b09dd9e661"     #gx3.4c4r
@@ -57,7 +58,7 @@ done
 
 # SSH
 while true; do
-  scp -i "$ssh_key" "ubuntu@$ip_address:/tmp/elk_install_complete.log" "elk_install_complete.log" >/dev/null 2>&1
+  scp $ssh_options -i "$ssh_key" "ubuntu@$ip_address:/tmp/elk_install_complete.log" "elk_install_complete.log" >/dev/null 2>&1
   if [ $? -eq 0 ] && grep -q "Installation complete" "elk_install_complete.log"; then
     echo "Elasticsearch installation complete"
     break
