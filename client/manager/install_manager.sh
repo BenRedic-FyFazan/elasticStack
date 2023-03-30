@@ -13,7 +13,7 @@ bf_uc_reports_script="$HOME/elasticStack/client/manager/script/bf_uc_reports.sh"
 
 # Installation
 echo "Installing nessecary dependencies..."
-sudo apt-get update -y && sudo apt-get install -y jq python3-openstackclient
+sudo apt-get update -y && sudo apt-get install -y jq python3-openstackclient apt-transport-https
 
 ## Finds openstack_rc file and stores it to openstack_auth.txt
 echo "Locating openstack_rc file..."
@@ -64,3 +64,10 @@ echo "$cronjob_1" >> "$temp_file"
 echo "$cronjob_2" >> "$temp_file"
 crontab "$temp_file"
 rm "$temp_file"
+
+## Installing filebeat
+wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+sudo apt-get update && sudo apt-get install filebeat
+sudo systemctl enable filebeat
+
