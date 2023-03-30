@@ -104,5 +104,7 @@ rm "$temp_file"
 touch $filebeat_yml
 cp $manager/code/filebeat.yml $filebeat_yml
 yq eval -i ".output.elasticsearch.hosts[0] = \"https://$elastic_ip:9200\"" $filebeat_yml
+sudo rm /etc/filebeat/filebeat.yml
+sudo cp $filebeat_yml /etc/filebeat.yml
 
 sudo systemctl restart filebeat.service
