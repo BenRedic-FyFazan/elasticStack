@@ -2,6 +2,7 @@
 
 # Variables
 manager="$HOME/elasticStack/client/manager"
+vars="$HOME/elasticStack/vars"
 elastic_ca="$HOME/elasticStack/vars/elasticsearch-ca.pem"
 elastic_ip=$(cat $HOME/elasticStack/vars/elasticsearch_ip.txt)
 filebeat_yml="$HOME/elasticStack/vars/filebeat.yml"
@@ -101,4 +102,7 @@ crontab "$temp_file"
 rm "$temp_file"
 
 touch $filebeat_yml
-echo "filebeat.inputs:" >> $filebeat_yml
+cp $manager/code/filebeat.yml $filebeat_yml
+yq eval -i ".output.elasticsearch.hosts[0] = \"https://$elastic_ip:9200\"" $filebeat_yml
+
+sudo systemctl restart filebeat.service

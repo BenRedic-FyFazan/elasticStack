@@ -43,23 +43,23 @@ setup.template.settings:
 setup.kibana:
 
 # ================================== Outputs ===================================
-# ---------------------------- Elasticsearch Output ----------------------------
-output.elasticsearch:
-  # Array of hosts to connect to.
-  hosts: ["https://192.168.128.252:9200"]
+output:
+  elasticsearch:
+    # Array of hosts to connect to.
+    hosts: ["https://192.168.128.252:9200"]
 
-  # Protocol - either `http` (default) or `https`.
-  protocol: "https"
+    # Protocol - either `http` (default) or `https`.
+    protocol: "https"
 
-  # Authentication credentials - either API key or username/password.
-  #api_key: "id:api_key"
-  username: "elastic"
-  password: "superuser"
-  ssl.certificate_authorities: ["/home/ubuntu/elasticsearch-ca.pem"]
+    # Authentication credentials - either API key or username/password.
+    #api_key: "id:api_key"
+    username: "elastic"
+    password: "superuser"
+    ssl.certificate_authorities: ["/home/ubuntu/elasticsearch-ca.pem"]
 
-  data_stream:
-     type: "filestream"
-     dataset: "{{fields.index_template}}"
+    data_stream:
+      type: "filestream"
+      dataset: "{{fields.index_template}}"
 
 # ================================= Processors =================================
 processors:
