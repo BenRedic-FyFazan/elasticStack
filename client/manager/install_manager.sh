@@ -2,6 +2,9 @@
 
 # Variables
 manager="$HOME/elasticStack/client/manager"
+elastic_ca="$HOME/elasticStack/vars/elasticsearch-ca.pem"
+elastic_ip=$(cat $HOME/elasticStack/vars/elasticsearch_ip.txt)
+filebeat_yml="$HOME/elasticStack/vars/filebeat.yml"
 search_dir="/"
 openstack_auth_location="$HOME/elasticStack/client/manager/openstack_auth.txt"
 export logrotated="/etc/logrotate.d/"
@@ -13,7 +16,39 @@ bf_uc_reports_script="$HOME/elasticStack/client/manager/script/bf_uc_reports.sh"
 
 # Installation
 echo "Installing nessecary dependencies..."
-sudo apt-get update -y && sudo apt-get install -y jq python3-openstackclient apt-transport-https
+sudo apt update && sudo apt install -y apt-transport-https
+if ! command -v openstack >/dev/null 2>&1; then
+  echo "openstack client (openstack) not found, installing..."
+  sudo apt update
+  sudo apt install -y python3-openstackclient
+else
+  echo "openstack client (openstack) found, proceeding..."
+fi
+
+if ! command -v jq >/dev/null 2>&1; then
+  echo "jq not found, installing..."
+  sudo apt-get update
+  sudo apt-get install -y jq
+else
+  echo "jq found, proceeding..."
+fi
+
+if ! command -v yq >/dev/null 2>&1; then
+  echo "yq not found, installing..."
+  sudo snap install yq
+else
+  echo "yq found, proceeding..."
+fi
+
+if ! command -v filebeat >/dev/null 2>&1; then
+  echo "filebeat not found, installing..."
+  wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
+  echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
+  sudo apt-get update && sudo apt-get install filebeat
+  sudo systemctl enable filebeat
+else
+  echo "filebeat found, proceeding..."
+fi
 
 ## Finds openstack_rc file and stores it to openstack_auth.txt
 echo "Locating openstack_rc file..."
@@ -65,9 +100,5 @@ echo "$cronjob_2" >> "$temp_file"
 crontab "$temp_file"
 rm "$temp_file"
 
-## Installing filebeat
-wget -qO - https://artifacts.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-echo "deb https://artifacts.elastic.co/packages/8.x/apt stable main" | sudo tee -a /etc/apt/sources.list.d/elastic-8.x.list
-sudo apt-get update && sudo apt-get install filebeat
-sudo systemctl enable filebeat
-
+touch $filebeat_yml
+echo "filebeat.inputs:" >> $filebeat_yml

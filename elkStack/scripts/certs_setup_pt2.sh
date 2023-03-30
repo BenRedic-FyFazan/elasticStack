@@ -28,6 +28,9 @@ sudo mv $usrElastic/kibana/elasticsearch-ca.pem $etcElastic/elasticsearch-ca.pem
 sudo chmod 664 $etcElastic/elasticsearch-ca.pem
 sudo cp $etcElastic/elasticsearch-ca.pem $etcKibana/elasticsearch-ca.pem
 sudo cp $etcElastic/elasticsearch-ca.pem $ca
+sudo cp $etcElastic/elasticsearch-ca.pem /
+sudo chmod 660 /elasticsearch-ca.pem
+sudo chown root:ubuntu /elasticsearch-ca.pem
 sudo chmod 644 $ca
 
 ## Starting and verifying that elastic is running.

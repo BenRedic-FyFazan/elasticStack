@@ -48,7 +48,7 @@ done
 
 # Fetch ip-address of the elasticSearch server and store it to file
 ip_address=$(openstack server show "$vmName" -c addresses -f value | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
-echo "$ip_address" > $HOME/elasticStack/elasticsearch_ip.txt
+echo "$ip_address" > $HOME/elasticStack/vars/elasticsearch_ip.txt
 echo "Instance '$vmName' created with IP address: $ip_address"
 
 # Checks if SSH service is available 
@@ -66,6 +66,8 @@ while true; do
     sleep 10
   fi
 done
+
+scp $ssh_options -i "$ssh_key" "ubuntu@$ip_address:/elasticsearch-ca.pem" "$HOME/elasticStack/vars" >/dev/null 2>&1
 
 # Cleanup
 rm "elk_install_complete.log"
