@@ -23,7 +23,7 @@ export cert_http_PW="admin1"                                    # Password for H
 export home=$HOME                                               # Home folder
 
 # Repo
-export elkStack=$home/elasticStack/elkStack                     # "root" of elasticStack host project files
+export elkStack=$HOME/elasticStack/elkStack                     # "root" of elasticStack host project files
 export scripts=$elkStack/scripts                                # Directory for scripts (.sh)
 export policy=$elkStack/policy                                  # Directory for policies (JSON formatted)
 export index_template=$elkStack/index_template                  # Directory for index templates
@@ -63,7 +63,7 @@ sudo apt update && sudo apt install -y net-tools unzip apt-transport-https openj
 echo 'JAVA_HOME="/usr/lib/jvm/java-17-openjdk-amd64"' | sudo tee -a /etc/environment
 source /etc/environment
 cd "$HOME" || exit        
-sudo git clone https://github.com/BenRedic-FyFazan/elkStack_DCSG2003.git
+sudo git clone https://github.com/BenRedic-FyFazan/elasticStack.git
 
 # Installing elkStack
 "$scripts"/elasticsearch_setup.sh
