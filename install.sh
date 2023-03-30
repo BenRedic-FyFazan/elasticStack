@@ -4,6 +4,7 @@ export elastic_SU_PW="superuser"
 export kibana_U_PW="kibanauser"
 #### NO MORE CONFIG FOR USERS AFTER THIS
 
+## VERIFY THAT THIS IS NEEDED
 # Openstack API scriot: [NAME]-openrc.sh 
 export openstack_auth=/home/ubuntu/DCSG2003_V23_group44-openrc.sh  
 
@@ -53,7 +54,7 @@ export api_ingest_pipeline="https://127.0.0.1:9200/_ingest/pipeline"
 export ip4=$(/sbin/ip -o -4 addr list ens3 | awk '{print $4}' | cut -d/ -f1) # Fetches IP address of ens3
 export ip_local="127.0.0.1"                                      # localhost
 export api_auth="$elastic_SU:$elastic_SU_PW"                     # API endpoint authentication
-export ca=$home/elkStack_DCSG2003/elasticsearch-ca.pem           # Certificate authority (generate midways)
+export ca=$HOME/elasticStack/elasticsearch-ca.pem           # Certificate authority (generate midways)
 
 
 ######################################## INSTALL ##############################################
