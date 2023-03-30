@@ -23,7 +23,7 @@ export cert_http_PW="admin1"                                    # Password for H
 export home=$HOME                                               # Home folder
 
 # Repo
-export elkStack=$home/elasticStack/elkStack                # "root" of elasticStack host project files
+export elkStack=$home/elasticStack/elkStack                     # "root" of elasticStack host project files
 export scripts=$elkStack/scripts                                # Directory for scripts (.sh)
 export policy=$elkStack/policy                                  # Directory for policies (JSON formatted)
 export index_template=$elkStack/index_template                  # Directory for index templates
