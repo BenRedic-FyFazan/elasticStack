@@ -3,10 +3,25 @@
 # Variables
 keypairName="Manager-ssh-keypair"
 ssh_pub="~/.ssh/id_rsa.pub"
+ssh_key="~/.ssh/id_rsa"
 vmName="elasticStack"
 vmImage="db1bc18e-81e3-477e-9067-eecaa459ec33"      #Ubuntu Server 22.04 LTS (Jammy Jellyfish) amd54
 vmFlavor="4b570035-f1bb-4fc4-bd39-30b09dd9e661"     #gx3.4c4r
 elkInstallScript="$HOME/elasticStack/elkStack/scripts/installElkStack.sh"
+
+# openstack client
+if ! command -v openstack >/dev/null 2>&1; then
+  echo "openstack client (openstack) not found, installing..."
+  sudo apt update
+  sudo apt install -y python3-openstackclient
+fi
+
+# Netcat
+if ! command -v nc >/dev/null 2>&1; then
+  echo "Netcat (nc) not found, installing..."
+  sudo apt-get update
+  sudo apt-get install -y netcat
+fi 
 
 # Need to create a keypair (the others are connected to the openstack users)
 openstack keypair create --public-key $ssh_pub $keypairName
@@ -33,4 +48,24 @@ done
 # Fetch ip-address of the elasticSearch server and store it to file
 ip_address=$(openstack server show "$vmName" -c addresses -f value | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
 echo "$ip_address" > $HOME/elasticStack/elasticsearch_ip.txt
+echo "Instance '$vmName' created with IP address: $ip_address"
+
+# Checks if SSH service is available 
+while ! nc -z -v -w5 "$ip_address" 22; do
+  sleep 5
+done
+
+# SSH
+while true; do
+  scp -i "$ssh_key" "ubuntu@$ip_address:/tmp/elk_install_complete.log" "elk_install_complete.log" >/dev/null 2>&1
+  if [ $? -eq 0 ] && grep -q "Installation complete" "elk_install_complete.log"; then
+    echo "Elasticsearch installation complete"
+    break
+  else
+    sleep 10
+  fi
+done
+
+# Cleanup
+rm "elk_install_complete.log"
 echo "Instance '$vmName' created with IP address: $ip_address"

@@ -112,3 +112,6 @@ done
 
 # Index template
 "$scripts"/index_template.sh
+
+# Log completion status so manager knows when install is completed
+echo "Installation complete" > /tmp/elk_install_complete.log
