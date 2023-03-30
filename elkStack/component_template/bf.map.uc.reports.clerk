@@ -1,0 +1,27 @@
+{
+  "template": { 
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date",
+          "format": "epoch_second"
+        },
+        "time_since_last_check": {
+          "type": "integer"
+        },
+        "vmcount": {
+          "type": "nested"
+        },
+        "result": {
+          "type": "text"
+        },
+        "workerhost": {
+          "type": "keyword"
+        },
+        "calculated_cost": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}

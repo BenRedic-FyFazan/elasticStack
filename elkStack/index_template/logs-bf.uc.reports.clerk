@@ -1,0 +1,13 @@
+{
+  "index_patterns": ["logs-bf.uc.reports.clerk*"],
+  "data_stream": {},
+  "composed_of": [
+    "bf.set.ilm", 
+    "bf.map.uc.reports.clerk"
+  ],
+  "priority": 500,
+  "version": 1,
+  "_meta": {
+    "description": "Template for server status logs"
+  }
+}

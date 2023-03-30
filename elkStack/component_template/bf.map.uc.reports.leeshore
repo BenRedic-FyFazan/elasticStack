@@ -1,0 +1,24 @@
+{
+  "template": { 
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date",
+          "format": "epoch_second"
+        },
+        "workerhost": {
+          "type": "keyword"
+        },
+        "result": {
+          "type": "text"
+        },
+        "affected_host_id": {
+          "type": "keyword"
+        },
+        "affected_host": {
+          "type": "keyword"
+        }
+      }
+    }
+  }
+}

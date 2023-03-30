@@ -1,0 +1,13 @@
+{
+  "index_patterns": ["logs-bf.uc.reports.continuous*"],
+  "data_stream": {},
+  "composed_of": [
+    "bf.set.ilm", 
+    "bf.map.uc.reports.continuous"
+  ],
+  "priority": 500,
+  "version": 1,
+  "_meta": {
+    "description": "Template for server status logs"
+  }
+}

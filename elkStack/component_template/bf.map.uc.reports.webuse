@@ -1,0 +1,21 @@
+{
+  "template": { 
+    "mappings": {
+      "properties": {
+        "@timestamp": {
+          "type": "date",
+          "format": "epoch_second"
+        },
+        "workerhost": {
+          "type": "text"
+        },
+        "task": {
+          "type": "text"
+        },
+        "rate": {
+          "type": "float"
+        }
+      }
+    }
+  }
+}
