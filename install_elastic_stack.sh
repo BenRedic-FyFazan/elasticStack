@@ -6,7 +6,7 @@ ssh_pub="~/.ssh/id_rsa.pub"
 vmName="elasticStack"
 vmImage="db1bc18e-81e3-477e-9067-eecaa459ec33"      #Ubuntu Server 22.04 LTS (Jammy Jellyfish) amd54
 vmFlavor="4b570035-f1bb-4fc4-bd39-30b09dd9e661"     #gx3.4c4r
-elkInstallScript="$HOME/elasticStack/install.sh"
+elkInstallScript="$HOME/elasticStack/elkStack/scripts/installElkStack.sh"
 
 # Need to create a keypair (the others are connected to the openstack users)
 openstack keypair create --public-key $ssh_pub $keypairName
@@ -32,5 +32,5 @@ done
 
 # Fetch ip-address of the elasticSearch server and store it to file
 ip_address=$(openstack server show "$vmName" -c addresses -f value | grep -Eo '([0-9]{1,3}\.){3}[0-9]{1,3}')
-echo "$ip_address" > $HOME/elasticStack/ip_address.txt
+echo "$ip_address" > $HOME/elasticStack/elasticsearch_ip.txt
 echo "Instance '$vmName' created with IP address: $ip_address"
