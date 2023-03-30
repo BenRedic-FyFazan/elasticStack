@@ -55,7 +55,7 @@ output:
     #api_key: "id:api_key"
     username: "elastic"
     password: "superuser"
-    ssl.certificate_authorities: ["/home/ubuntu/elasticsearch-ca.pem"]
+    ssl.certificate_authorities: ["/home/ubuntu/elasticStack/vars/elasticsearch-ca.pem"]
 
     data_stream:
       type: "filestream"
