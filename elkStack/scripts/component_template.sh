@@ -6,6 +6,12 @@ curl -u $api_auth --cacert $ca \
 -H "Content-Type: application/json" \
 -d @$component_template/bf.map.time_msg.json
 
+# Mappings for epoch_seconds @timestamp and message
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_component_template}/bf.map.epochtime_msg" \
+-H "Content-Type: application/json" \
+-d @$component_template/bf.map.epochtime_msg.json
+
 # Index Lifecycle policy settings
 curl -u $api_auth --cacert $ca \
 -X PUT "${api_component_template}/bf.set.ilm" \

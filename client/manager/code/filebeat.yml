@@ -1,76 +1,83 @@
 # ============================== Filebeat inputs ===============================
 filebeat.inputs:
-- type: filestream
-  paths:
-    - /var/log/bookface/bf_uc_reports_clerk.log
-  fields:
-    index_template: logs-bf_uc_reports_clerk
+  - type: filestream
+    enabled: true
+    id: bf.uc.reports.clerk
+    index: logs-bf.uc.reports.clerk
+    paths:
+      - /var/log/bookface/bf_uc_reports_clerk.log
 
-- type: filestream
-  paths:
-    - /var/log/bookface/bf_uc_reports_leeshore.log
-  fields:
-    index_template: logs-bf_uc_reports_leeshore
+  - type: filestream
+    enabled: true
+    id: bf.uc.reports.leeshore
+    index: logs-bf.uc.reports.leeshore
+    paths:
+      - /var/log/bookface/bf_uc_reports_leeshore.log
 
-- type: filestream
-  paths:
-    - /var/log/bookface/bf_uc_reports_webcheck.log
-  fields:
-    index_template: logs-bf_uc_reports_webcheck
+  - type: filestream
+    enabled: true
+    id: bf.uc.reports.webcheck
+    index: logs-bf.uc.reports.webcheck
+    paths:
+      - /var/log/bookface/bf_uc_reports_webcheck.log
 
-- type: filestream
-  paths:
-    - /var/log/bookface/bf_uc_reports_webuse.log
-  fields:
-    index_template: logs-bf_uc_reports_webuse
+  - type: filestream
+    enabled: true
+    id: bf.uc.reports.webuse
+    index: logs-bf.uc.reports.webuse
+    paths:
+      - /var/log/bookface/bf_uc_reports_webuse.log
 
-- type: filestream
-  paths:
-    - /var/log/bookface/bf_uc_reports_continuous.log
-  fields:
-    index_template: logs-bf_uc_reports_continuous
-
+  - type: filestream
+    enabled: true
+    id: bf.uc.reports.continuous
+    index: logs-bf.uc.reports.continuous
+    paths:
+      - /var/log/bookface/bf_uc_reports_continuous.log
 # ============================== Filebeat modules ==============================
 filebeat.config.modules:
   path: ${path.config}/modules.d/*.yml
   reload.enabled: false
-
 # ======================= Elasticsearch template setting =======================
 setup.template.settings:
   index.number_of_shards: 1
 
 # =================================== Kibana ===================================
 setup.kibana:
-
 # ================================== Outputs ===================================
 output:
   elasticsearch:
     # Array of hosts to connect to.
-    hosts: ["https://192.168.128.252:9200"]
-
+    hosts: ["https://192.168.133.180:9200"]
     # Protocol - either `http` (default) or `https`.
     protocol: "https"
-
     # Authentication credentials - either API key or username/password.
     #api_key: "id:api_key"
     username: "elastic"
     password: "superuser"
     ssl.certificate_authorities: ["/home/ubuntu/elasticStack/vars/elasticsearch-ca.pem"]
-
-    data_stream:
-      type: "filestream"
-      dataset: "{{fields.index_template}}"
-
-# ================================= Processors =================================
-processors:
-  - add_host_metadata:
-      when.not.contains.tags: forwarded
-  - add_cloud_metadata: ~
-  - add_docker_metadata: ~
-  - add_kubernetes_metadata: ~
-
 # ================================== Logging ===================================
 logging.level: debug
 logging.selectors: ["*"]
+logging.to_files: true
+logging.files:
+  path: /var/log/filebeat
+  name: filebeat.log
+  keepfiles: 7
+  permissions: 0644
 
+processors:
+  - decode_json_fields:
+      fields: ["message"]
+      target: ""
+      overwrite_keys: true
 
+  - timestamp:
+      field: report-timestamp
+      layouts:
+        - UNIX
+        - UNIX_MS
+
+  - drop_fields:
+      fields: ["/^agent/","/^ecs/","/^input/","/^log/","/^host/", "report-timestamp"]
+      ignore_missing: true

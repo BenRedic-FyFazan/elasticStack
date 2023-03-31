@@ -3,6 +3,7 @@
   "data_stream": {},
   "composed_of": [
     "bf.set.ilm", 
+    "bf.map.epochtime_msg",
     "bf.map.uc.reports.continuous"
   ],
   "priority": 500,

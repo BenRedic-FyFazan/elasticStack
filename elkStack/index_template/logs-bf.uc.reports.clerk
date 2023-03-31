@@ -2,7 +2,8 @@
   "index_patterns": ["logs-bf.uc.reports.clerk*"],
   "data_stream": {},
   "composed_of": [
-    "bf.set.ilm", 
+    "bf.set.ilm",
+    "bf.map.epochtime_msg",
     "bf.map.uc.reports.clerk"
   ],
   "priority": 500,
