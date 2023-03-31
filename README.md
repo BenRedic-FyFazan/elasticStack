@@ -30,5 +30,5 @@ In other words, the certificates won't be signed by an authority your browser re
 Fear not though, we created them ourselves so just accept the risk and move on! ... =)
 ![Kibana Dashboard Certificate warning](./images/kibana-certificate-warning.png)
 
-7. You can now log into the dashboard with the user 'elastic' and the password set in the install.sh (default: superuser). Hooray!
+7. You can now log into the dashboard with the user 'elastic' and the default password 'superuser'. Hooray!
 ![Kibana Dashboard Portal](./images/kibana-portal.png)
