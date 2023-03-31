@@ -3,11 +3,15 @@
     "mappings": {
       "properties": {
         "@timestamp": {
+          "format": "date_optional_time||epoch_second||strict_date_time",
+          "index": true,
+          "ignore_malformed": false,
+          "store": false,
           "type": "date",
-          "format": "epoch_second"
+          "doc_values": true
         },
         "message": {
-          "type": "wildcard"
+        "type": "wildcard"
         }
       }
     }
