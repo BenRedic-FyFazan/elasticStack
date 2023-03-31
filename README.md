@@ -6,15 +6,15 @@ This is meant to be used in the backend created in DCSG2003 - robuste og skalerb
 Installation of this is fairly straightforward:
 
 1. Pull this repository to your manager, preferably to your HOME directory.You can use the following commands:
-´´´bash
+```bash
 cd $HOME
 git clone https://github.com/BenRedic-FyFazan/elasticStack.git
-´´´
+```
 
 2. Run the install_elastic_stack.sh from the elkStack folder within the repo:
-´´´bash
+```bash
 $HOME/elasticStack/elkStack/install_elastic_stack.sh
-´´´
+```
  
 3. Wait 15 minutes or so. Grab a coffee and some water(remember to hydrate!), hug a friend and appreciate this moment of automation.
 The script will let you know when the process is finished.
