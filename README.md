@@ -24,8 +24,8 @@ The script will let you know when the process is finished.
 5. Head on over to https://[YOUR FLOATING IP]:5601 
     - Notice: remember the 's' in https, we use SSL/TLS for the traffic.
 
-6. DANGER! DANGER! DANGER! ... No not really.
-We use a self-signed certificate to enable the SSL/TLS traffic i mentioned.
+6. DANGER! DANGER! DANGER! 
+... No not really. We use a self-signed certificate to enable the SSL/TLS traffic i mentioned.
 In other words, the certificates won't be signed by an authority your browser recognizes. 
 Fear not though, we created them ourselves so just accept the risk and move on! ... =)
 ![Kibana Dashboard Certificate warning](./images/kibana-certificate-warning.png)
