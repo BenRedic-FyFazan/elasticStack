@@ -26,5 +26,15 @@ crontab -l | grep -v -F "$cronjob_1" | grep -v -F "$cronjob_2" > "$temp_file"
 crontab "$temp_file"
 rm "$temp_file"
 
+# Remove logrotation
+sudo rm -f "${logrotated}bf_os_servers"
+sudo rm -f "${logrotated}bf_uc_reports"
+
+# Uninstall filebeat
+echo "Uninstalling Filebeat..."
+sudo systemctl stop filebeat
+sudo systemctl disable filebeat
+sudo apt-get remove --purge -y filebeat
+
 echo "Uninstallation and reversion complete."
 
