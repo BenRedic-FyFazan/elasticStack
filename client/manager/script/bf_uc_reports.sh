@@ -18,7 +18,7 @@ for type in $(echo "$grouped_json" | jq -r 'keys[]'); do
     # renames "check_time" to "@timestamp", and appends it as a single JSON object
     echo "$objects" | jq -rc '.[] | with_entries(if .key == "check_time" then .key = "report-timestamp" else . end) | @json' | while IFS= read -r object; do
         object=$(echo "$object" | jq -rc 'del(._id, .name, .type) | @json')
-        object=$(echo "$object" | jq -rc 'if .vmcount | type == "string" then .vmcount |= fromjson | @json else . | @json end')
+        object=$(echo "$object" | jq -rc 'if .vmcount | type == "string" then .vmcount |= (fromjson | with_entries(select(.key | test("^[^_]*$")) | .value |= tonumber)) | @json else .vmcount |= (with_entries(select(.key | test("^[^_]*$")) | .value |= tonumber)) | @json end')
         echo "$object" >> "$LOG_FILE"
     done
 
