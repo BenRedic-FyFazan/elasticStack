@@ -1,18 +1,23 @@
 {
-  "template": { 
+  "template": {
     "mappings": {
+      "numeric_detection": true,
       "properties": {
-        "workerhost": {
-          "type": "keyword"
-        },
-        "result": {
-          "type": "text"
-        },
-        "affected_host_id": {
-          "type": "keyword"
-        },
-        "affected_host": {
-          "type": "keyword"
+        "bf.uc.reports.leeshore": {
+          "properties": {
+            "workerhost": {
+              "type": "keyword"
+            },
+            "result": {
+              "type": "text"
+            },
+            "affected_host_id": {
+              "type": "keyword"
+            },
+            "affected_host": {
+              "type": "keyword"
+            }
+          }
         }
       }
     }

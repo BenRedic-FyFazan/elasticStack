@@ -1,15 +1,20 @@
 {
-  "template": { 
+  "template": {
     "mappings": {
+      "numeric_detection": true,
       "properties": {
-        "workerhost": {
-          "type": "text"
-        },
-        "task": {
-          "type": "text"
-        },
-        "rate": {
-          "type": "float"
+        "bf.uc.reports.webuse": {
+          "properties": {
+            "workerhost": {
+              "type": "text"
+            },
+            "task": {
+              "type": "text"
+            },
+            "rate": {
+              "type": "float"
+            }
+          }
         }
       }
     }

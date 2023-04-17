@@ -1,21 +1,27 @@
 {
-  "template": { 
+  "template": {
     "mappings": {
+      "numeric_detection": true,
       "properties": {
-        "time_since_last_check": {
-          "type": "integer"
-        },
-        "vmcount": {
-          "type": "nested"
-        },
-        "result": {
-          "type": "text"
-        },
-        "workerhost": {
-          "type": "keyword"
-        },
-        "calculated_cost": {
-          "type": "float"
+        "bf.uc.reports.clerk": {
+          "properties": {
+            "time_since_last_check": {
+              "type": "integer"
+            },
+            "vmcount": {
+              "type": "object",
+              "properties": {}
+            },
+            "balance": {
+              "type": "float"
+            },
+            "workerhost": {
+              "type": "keyword"
+            },
+            "calculated_cost": {
+              "type": "float"
+            }
+          }
         }
       }
     }

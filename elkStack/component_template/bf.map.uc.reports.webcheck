@@ -1,51 +1,56 @@
 {
-  "template": { 
+  "template": {
     "mappings": {
+      "numeric_detection": true,
       "properties": {
-        "result": {
-          "type": "text"
-        },
-        "time_since_last_fail": {
-          "type": "integer"
-        },
-        "workerhost": {
-          "type": "keyword"
-        },
-        "actual_time_to_download": {
-          "type": "float"
-        },
-        "frontpage_count": {
-          "type": "integer"
-        },
-        "time_since_last_check": {
-          "type": "integer"
-        },
-        "images_found": {
-          "type": "integer"
-        },
-        "time_up_percentage": {
-          "type": "float"
-        },
-        "gale_is_active": {
-          "type": "integer"
-        },
-        "calculated_reward": {
-          "type": "float"
-        },
-        "page_ok": {
-          "type": "integer"
-        },
-        "bonus_reward": {
-          "type": "float"
-        },
-        "text_found": {
-          "type": "integer"
-        },
-        "time_in_production_percentage": {
-          "type": "float"
-        },
-        "time_to_download": {
-          "type": "float"
+        "bf.uc.reports.webcheck": {
+          "properties": {
+            "result": {
+              "type": "text"
+            },
+            "time_since_last_fail": {
+              "type": "integer"
+            },
+            "workerhost": {
+              "type": "keyword"
+            },
+            "actual_time_to_download": {
+              "type": "float"
+            },
+            "frontpage_count": {
+              "type": "integer"
+            },
+            "time_since_last_check": {
+              "type": "integer"
+            },
+            "images_found": {
+              "type": "integer"
+            },
+            "time_up_percentage": {
+              "type": "float"
+            },
+            "gale_is_active": {
+              "type": "integer"
+            },
+            "calculated_reward": {
+              "type": "float"
+            },
+            "page_ok": {
+              "type": "integer"
+            },
+            "bonus_reward": {
+              "type": "float"
+            },
+            "text_found": {
+              "type": "integer"
+            },
+            "time_in_production_percentage": {
+              "type": "float"
+            },
+            "time_to_download": {
+              "type": "float"
+            }
+          }
         }
       }
     }

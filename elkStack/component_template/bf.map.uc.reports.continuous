@@ -1,150 +1,155 @@
 {
-  "template": { 
+  "template": {
     "mappings": {
+      "numeric_detection": true,
       "properties": {
-        "task": {
-          "type":"text" 
-        },
-        "workerhost": {
-          "type": "binary"
-        },
-        "result": {
-         "type": "nested",
-         "properties": {
-           "errors-connreset": {
-             "type": "integer"
-            },
-            "errors-fd-unavail": {
-              "type": "integer"
-            },
-            "connection_time_stddev": {
-              "type": "float"
-            },
-            "errors-other": {
-              "type": "integer"
-            },
-            "reply_status_3xx": {
-              "type": "integer"
-            },
-            "errors-connrefused": {
-              "type": "integer"
-            },
-            "connections": {
-              "type": "integer"
-            },
-            "errors-socket-timo": {
-              "type": "integer"
-            },
-            "connection_time_avg": {
-              "type": "float"
-            },
-            "reply_size_total": {
-              "type": "float"
-            },
-            "errors-client-timo": {
-              "type": "integer"
-            },
-            "cpu_time_system_percent": {
+        "bf.uc.reports.continuous": {
+          "properties": {
+            "task": {
               "type": "text"
             },
-            "cpu_time_system_seconds": {
-              "type": "float"
+            "workerhost": {
+              "type": "binary"
             },
-            "reply_rate_stddev": {
-              "type": "float"
-            },
-            "errors-ftab-full": {
-              "type": "integer"
-            },
-            "request_size": {
-              "type": "float"
-            },
-            "reply_size_content": {
-              "type": "float"
-            },
-            "reply_status_2xx": {
-              "type": "integer"
-            },
-            "reply_size_header": {
-              "type": "float"
-            },
-            "cpu_time_user_seconds": {
-              "type": "float"
-            },
-            "reply_rate_max": {
-              "type": "float"
-            },
-            "reply_status_1xx": {
-              "type": "integer"
-            },
-            "cpu_time_user_percent": {
-              "type": "text"
-            },
-            "reply_rate_min": {
-             "type": "float"
-            },
-            "connection_time_median": {
-              "type": "float"
-            },
-            "connection_time_min": {
-              "type": "float"
-            },
-            "reply_status_4xx": {
-              "type": "integer"
-            },
-            "reply_time_transfer": {
-              "type": "float"
-            },
-            "connection_time_ms": {
-              "type": "float"
-            },
-            "errors-total": {
-              "type": "integer"
-            },
-            "connection_rate": {
-              "type": "float"
-            },
-            "test-duration": {
-              "type": "float"
-            },
-            "connection_time_max": {
-              "type": "float"
-            },
-            "ms/conn": {
-              "type": "float"
-            },
-            "request_rate_req/s": {
-              "type": "float"
-            },
-            "reply_time_response": {
-              "type": "float"
-            },
-            "net_io_kb/s": {
-              "type": "float"
-            },
-            "reply_status_5xx": {
-              "type": "integer"
-            },
-            "connection_length_replies/conn": {
-              "type": "float"
-            },
-            "replies": {
-              "type": "integer"
-            },
-            "reply_rate_avg": {
-              "type": "float"
-            },
-            "reply_size_footer": {
-              "type": "float"
-            },
-            "requests": {
-              "type": "integer"
-            },
-            "errors-addrunavail": {
-              "type": "integer"
-            },
-            "request_rate_ms/req": {
-              "type": "float"
+            "result": {
+              "type": "object",
+              "properties": {
+                "errors-connreset": {
+                  "type": "integer"
+                },
+                "errors-fd-unavail": {
+                  "type": "integer"
+                },
+                "connection_time_stddev": {
+                  "type": "float"
+                },
+                "errors-other": {
+                  "type": "integer"
+                },
+                "reply_status_3xx": {
+                  "type": "integer"
+                },
+                "errors-connrefused": {
+                  "type": "integer"
+                },
+                "connections": {
+                  "type": "integer"
+                },
+                "errors-socket-timo": {
+                  "type": "integer"
+                },
+                "connection_time_avg": {
+                  "type": "float"
+                },
+                "reply_size_total": {
+                  "type": "float"
+                },
+                "errors-client-timo": {
+                  "type": "integer"
+                },
+                "cpu_time_system_percent": {
+                  "type": "text"
+                },
+                "cpu_time_system_seconds": {
+                  "type": "float"
+                },
+                "reply_rate_stddev": {
+                  "type": "float"
+                },
+                "errors-ftab-full": {
+                  "type": "integer"
+                },
+                "request_size": {
+                  "type": "float"
+                },
+                "reply_size_content": {
+                  "type": "float"
+                },
+                "reply_status_2xx": {
+                  "type": "integer"
+                },
+                "reply_size_header": {
+                  "type": "float"
+                },
+                "cpu_time_user_seconds": {
+                  "type": "float"
+                },
+                "reply_rate_max": {
+                  "type": "float"
+                },
+                "reply_status_1xx": {
+                  "type": "integer"
+                },
+                "cpu_time_user_percent": {
+                  "type": "text"
+                },
+                "reply_rate_min": {
+                  "type": "float"
+                },
+                "connection_time_median": {
+                  "type": "float"
+                },
+                "connection_time_min": {
+                  "type": "float"
+                },
+                "reply_status_4xx": {
+                  "type": "integer"
+                },
+                "reply_time_transfer": {
+                  "type": "float"
+                },
+                "connection_time_ms": {
+                  "type": "float"
+                },
+                "errors-total": {
+                  "type": "integer"
+                },
+                "connection_rate": {
+                  "type": "float"
+                },
+                "test-duration": {
+                  "type": "float"
+                },
+                "connection_time_max": {
+                  "type": "float"
+                },
+                "ms/conn": {
+                  "type": "float"
+                },
+                "request_rate_req/s": {
+                  "type": "float"
+                },
+                "reply_time_response": {
+                  "type": "float"
+                },
+                "net_io_kb/s": {
+                  "type": "float"
+                },
+                "reply_status_5xx": {
+                  "type": "integer"
+                },
+                "connection_length_replies/conn": {
+                  "type": "float"
+                },
+                "replies": {
+                  "type": "integer"
+                },
+                "reply_rate_avg": {
+                  "type": "float"
+                },
+                "reply_size_footer": {
+                  "type": "float"
+                },
+                "requests": {
+                  "type": "integer"
+                },
+                "errors-addrunavail": {
+                  "type": "integer"
+                },
+                "request_rate_ms/req": {
+                  "type": "float"
+                }
+              }
             }
           }
         }
@@ -152,3 +157,4 @@
     }
   }
 }
+      
