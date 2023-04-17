@@ -35,3 +35,9 @@ curl -u $api_auth --cacert $ca \
 -X PUT "${api_index_template}/logs-bf.uc.reports.webuse" \
 -H "Content-Type: application/json" \
 -d @$index_template/logs-bf.uc.reports.webuse
+
+# logs-bf.uc.log
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_index_template}/logs-bf.uc.log" \
+-H "Content-Type: application/json" \
+-d @$index_template/logs-bf.uc.log

@@ -1,0 +1,34 @@
+{
+  "index_patterns": [
+    "logs-bf.uc.log*"
+  ],
+  "data_stream": {},
+  "composed_of": [
+    "bf.set.ilm",
+    "bf.map.epochtime_msg"
+  ],
+  "priority": 500,
+  "version": 1,
+  "template": {
+    "mappings": {
+      "properties": {
+        "bf.uc.log": {
+          "properties": {
+            "source": {
+              "type": "keyword"
+            },
+            "message": {
+              "type": "text"
+            },
+            "level": {
+              "type": "integer"
+            }
+          }
+        }
+      }
+    }
+  }, 
+  "_meta": {
+    "description": "Simple log messages with source and log level"
+  }
+}
