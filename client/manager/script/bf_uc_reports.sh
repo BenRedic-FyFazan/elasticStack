@@ -29,6 +29,11 @@ for type in $(echo "$grouped_json" | jq -r 'keys[]'); do
             # Creates a new field for the current balance, then extracts the value from result and finally removes result.
             object=$(echo "$object" | jq -rc '.balance = 0 | .balance = ( .result | match("New balance is ([0-9.]+)"; "g").captures[0].string | tonumber ) | del(.result)')
 
+            # Creates the fields total_RAM and total_CPU and calculates their values based on the VMcount fields.
+            total_RAM=$(echo "$object" | jq -rc '.vmcount | to_entries | map((.key | match("\\d+(?=r)"; "g").string | tonumber) * .value) | add')
+            total_CPU=$(echo "$object" | jq -rc '.vmcount | to_entries | map((.key | match("\\d+(?=c)"; "g").string | tonumber) * .value) | add')
+            object=$(echo "$object" | jq -rc --argjson total_RAM "$total_RAM" --argjson total_CPU "$total_CPU" '. + {total_RAM: $total_RAM, total_CPU: $total_CPU}')
+
         fi
 
         # Wrap the object in another object with the key ('bf.uc.reports.{type}') and append timestamp

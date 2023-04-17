@@ -20,6 +20,12 @@
             },
             "calculated_cost": {
               "type": "float"
+            },
+            "total_CPU": {
+              "type": "integer"
+            },
+            "total_RAM": {
+              "type": "integer"
             }
           }
         }
