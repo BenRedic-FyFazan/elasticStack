@@ -3,8 +3,6 @@
 script_dir=$(dirname $0)
 ca=$script_dir/elasticsearch-ca.pem
 elasticSearch=$(cat $script_dir/elasticsearch_ip.txt)
-
-
 logsource=""
 message=""
 loglevel=0
@@ -40,6 +38,11 @@ fi
 
 timestamp=$(date +"%Y-%m-%dT%H:%M:%S.%3N%z")
 log_line="{\"@timestamp\": \"$timestamp\", \"bf.uc.log\": {\"source\": \"$logsource\", \"level\": $loglevel, \"message\": \"$message\"}}"
-echo $log_line
 
-
+# Shipping to elasticsearch - MAKE CERTIFICATE GOOD ENOUGH TO NOT REQUIRE USER CREDENTIALS
+curl -X POST \
+-H "Content-Type: application/json" \
+--data-binary "$log_line" \
+--cacert "$ca" \
+-u "elastic:superuser" \
+"https://$elasticSearch:9200/logs-bf.uc.log/_doc/"
