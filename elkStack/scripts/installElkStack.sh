@@ -95,7 +95,7 @@ while true; do
 done
 
 # Installing Integrations
-"$scripts"/integration_setup.sh
+#"$scripts"/integration_setup.sh
 
 # Creating policies
 "$scripts"/policy/create_policies.sh
