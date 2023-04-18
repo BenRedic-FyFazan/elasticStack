@@ -93,7 +93,7 @@ sudo cp $manager/logrotate.d/* $logrotated
 
 ## Adding to crontab
 cronjob_1="* * * * * $manager/script/bf_os_servers.sh"
-cronjob_2="*/5 * * * * $manager/script/bf_uc_reports.sh"
+cronjob_2="*/2 * * * * $manager/script/bf_uc_reports.sh"
 temp_file=$(mktemp)
 crontab -l > "$temp_file"
 echo "$cronjob_1" >> "$temp_file"
