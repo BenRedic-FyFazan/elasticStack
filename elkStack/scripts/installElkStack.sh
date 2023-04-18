@@ -31,6 +31,7 @@ export index_template=$elkStack/index_template                  # Directory for 
 export index_lifecycle=$elkStack/index_lifecycle
 export ingest_pipeline=$elkStack/ingest_pipeline
 export component_template=$elkStack/component_template
+export dashboards=$elkStack/dashboards
 
 # Elasticsearch
 export etcElastic=/etc/elasticsearch                            # Elastic configuration files
@@ -43,6 +44,7 @@ export usrKibana=/usr/share/kibana                              # Kibana binarie
 ## API endpoints
 # Kibana
 export api_fleet="https://127.0.0.1:5601/api/fleet"
+export api_saved_objects_import="https://127.0.0.1:5601/api/saved_objects/_import"
 
 # Elasticsearch
 export api_index_template="https://127.0.0.1:9200/_index_template"
@@ -112,6 +114,9 @@ done
 
 # Index template
 "$scripts"/index_template.sh
+
+# Dashboards
+"$scripts"/dashboards.sh
 
 # Log completion status so manager knows when install is completed
 echo "Installation complete" > /tmp/elk_install_complete.log
