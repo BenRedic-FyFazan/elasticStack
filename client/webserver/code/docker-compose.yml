@@ -1,0 +1,89 @@
+version: "3.3"
+
+configs:
+  bf_config:
+    file: ./config.php.swarm
+
+  haproxy_config:
+    file: ./haproxy_cache.cfg
+
+  filebeat_config:
+    file: ./filebeat.yml
+
+networks:
+  bf:
+    attachable: true
+
+services:
+  web:
+    image: 192.168.128.23:5000/bf:v17
+    restart: always
+
+    configs:
+      - source: bf_config
+        target: /var/www/html/config.php
+
+    networks:
+        - bf
+    volumes:
+        - type: bind
+          source: /bf_images
+          target: /var/www/html/images
+        - type: bind
+          source: /bf_logs/apache2
+          target: /var/log/apache2
+
+    environment:
+      BF_MEMCACHE_SERVER: memcache
+      BF_DB_HOST: balancer
+      BF_DB_PORT: 26257
+      BF_DB_USER: bfuser
+      BF_DB_NAME: bf
+      BF_FRONTPAGE_LIMIT: 500
+
+    deploy:
+      replicas: 3
+
+  memcache:
+    image: 192.168.128.23:5000/memcached
+
+    networks:
+      - bf
+
+  balancer:
+    image: 192.168.128.23:5000/haproxy
+
+    configs:
+      - source: haproxy_config
+        target: /usr/local/etc/haproxy/haproxy.cfg
+
+    networks:
+      - bf
+
+    deploy:
+      replicas: 3
+
+    ports:
+      - "1936:1936"
+      - "80:80"
+      
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:8.7.0
+    configs:
+      - source: filebeat_config
+        target: /usr/share/filebeat/filebeat.yml
+    user: root
+    volumes:
+      - type: bind
+        source: /bf_logs/apache2
+        target: /bf_logs/apache2
+      - type: bind
+        source: ./elasticsearch-ca.pem
+        target: /usr/share/filebeat/elasticsearch-ca.pem
+
+    networks:
+      - bf
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
