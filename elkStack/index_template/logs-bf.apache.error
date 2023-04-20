@@ -1,0 +1,19 @@
+{
+  "index_patterns": ["logs-bf.apache.error*"],
+  "data_stream": {},
+  "composed_of": [
+    "bf.set.ilm",
+    "bf.map.epochtime_msg",
+    "bf.map.apache.error"
+  ],
+  "priority": 500,
+  "version": 1,
+  "_meta": {
+    "description": "Index template for apache error logfiles"
+  },
+   "template": {
+    "settings": {
+      "index.default_pipeline": "logs-bf.apache.error"
+    }
+  }
+}

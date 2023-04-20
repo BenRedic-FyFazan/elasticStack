@@ -1,0 +1,68 @@
+{
+  "template": {
+    "mappings": {
+      "numeric_detection": true,
+      "properties": {
+        "bf.apache.access": {
+          "properties": {
+            "request": {
+              "properties": {
+                "method": {
+                  "type": "keyword"
+                },
+                "uri": {
+                  "type": "keyword"
+                },
+                "referer": {
+                  "type": "keyword"
+                },
+                "x_forwarded_for": {
+                  "type": "text"
+                }
+              }
+            },
+            "response": {
+              "properties": {
+                "bytes": {
+                  "type": "integer"
+                },
+                "time_taken_to_serve_ms": {
+                  "type": "integer"
+                }
+              }
+            },
+            "http": {
+              "properties": {
+                "version": {
+                  "type": "keyword"
+                },
+                "status": {
+                  "type": "integer"
+                }
+              }
+            },
+            "client": {
+              "properties": {
+                "remote_user": {
+                  "type": "keyword"
+                },
+                "agent": {
+                  "type": "text"
+                },
+                "remote_logname": {
+                  "type": "keyword"
+                },
+                "host": {
+                  "type": "ip"
+                }
+              }
+            },
+            "event.ingested": {
+              "type": "date"
+            }
+          }
+        }
+      }
+    }
+  }
+}

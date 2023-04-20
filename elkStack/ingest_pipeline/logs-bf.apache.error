@@ -1,0 +1,32 @@
+{
+  "description": "Ingest pipeline for apache error logs",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "\\[%{TIMESTAMP_ISO8601:bf.error.event.created}\\] \\[%{DATA:bf.error.event.subtype}:%{DATA:bf.error.event.level}\\] \\[pid %{INT:bf.error.event.pid}\\] \\[client %{IP:bf.error.event.client}:%{INT:bf.error.event.client_port}\\] %{GREEDYDATA:bf.error.message}"
+        ]
+      }
+    },
+    {
+      "remove": {
+        "field": "message"
+      }
+    },
+    {
+      "rename": {
+        "field": "bf.error.message",
+        "target_field": "message"
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "error.message",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

@@ -1,11 +1,16 @@
-# ============================== Filebeat inputs ===============================
 filebeat.inputs:
   - type: filestream
     enabled: true
     id: bf.apache.access
     index: logs-bf.apache.access
     paths:
-      - /bf_logs/apache2/access.log
+      - /bf_logs/apache2/access.*.log
+  - type: filestream
+    enabled: true
+    id: bf.apache.error
+    index: logs-bf.apache.error
+    paths:
+      - /bf_logs/apache2/error.*.log
 
 # ============================== Filebeat modules ==============================
 filebeat.config.modules:
@@ -21,13 +26,13 @@ setup.kibana:
 output:
   elasticsearch:
     # Array of hosts to connect to.
-    hosts: ["https://192.168.133.180:9200"]
+    hosts: ["https://192.168.133.222:9200"]
     # Protocol - either `http` (default) or `https`.
     protocol: "https"
     # Authentication credentials - either API key or username/password.
     username: "elastic"
     password: "superuser"
-    ssl.certificate_authorities: ["/etc/filebeat/elasticsearch-ca.pem"]
+    ssl.certificate_authorities: ["/usr/share/filebeat/elasticsearch-ca.pem"]
 # ================================== Logging ===================================
 logging.level: debug
 logging.selectors: ["*"]

@@ -53,3 +53,15 @@ curl -u $api_auth --cacert $ca \
 -X PUT "${api_component_template}/bf.map.uc.reports.leeshore" \
 -H "Content-Type: application/json" \
 -d @$component_template/bf.map.uc.reports.leeshore
+
+# Mappings for bf.apache.error
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_component_template}/bf.map.apache.error" \
+-H "Content-Type: application/json" \
+-d @$component_template/bf.map.apache.error
+
+# Mappings for bf.apache.access
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_component_template}/bf.map.apache.access" \
+-H "Content-Type: application/json" \
+-d @$component_template/bf.map.apache.access

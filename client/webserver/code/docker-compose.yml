@@ -10,6 +10,12 @@ configs:
   filebeat_config:
     file: ./filebeat.yml
 
+  apache2_config:
+    file: ./apache2.conf
+
+  apache2_sites-enabled:
+    file: ./sites-enabled/000-default.conf
+
 networks:
   bf:
     attachable: true
@@ -22,6 +28,10 @@ services:
     configs:
       - source: bf_config
         target: /var/www/html/config.php
+      - source: apache2_config
+        target: /etc/apache2/apache2.conf
+      - source: apache2_sites-enabled
+        target: /etc/apache2/sites-enabled/000-default.conf
 
     networks:
         - bf
@@ -66,7 +76,7 @@ services:
     ports:
       - "1936:1936"
       - "80:80"
-      
+
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.7.0
     configs:

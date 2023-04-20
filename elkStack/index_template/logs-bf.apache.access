@@ -1,0 +1,19 @@
+{
+  "index_patterns": ["logs-bf.apache.access*"],
+  "data_stream": {},
+  "composed_of": [
+    "bf.set.ilm",
+    "bf.map.epochtime_msg",
+    "bf.map.apache.access"
+  ],
+  "priority": 500,
+  "version": 1,
+  "_meta": {
+    "description": "Index template for apache access logfiles"
+  },
+   "template": {
+    "settings": {
+      "index.default_pipeline": "logs-bf.apache.access"
+    }
+  }
+}

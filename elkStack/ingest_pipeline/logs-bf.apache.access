@@ -1,0 +1,51 @@
+{
+  "description": "Pipeline for parsing Apache HTTP Server access logs.",
+  "processors": [
+    {
+      "grok": {
+        "field": "message",
+        "patterns": [
+          "\\[%{HTTPDATE:bf.apache.access.timestamp}\\] \\[%{IPORHOST:bf.apache.access.client.host}\\] \\[(?:%{IPORHOST}(?:,\\s%{IPORHOST}){0,}?|-\\s?)\\] \\[(?:%{DATA:bf.apache.access.client.remote_logname}|-)\\] \\[(?:%{DATA:bf.apache.access.client.remote_user}|-)\\] \\[%{WORD:bf.apache.access.request.method}\\] \\[%{NOTSPACE:bf.apache.access.request.uri}\\] \\[%{DATA:bf.apache.access.http.version}\\] \\[%{NUMBER:bf.apache.access.http.status}\\] \\[(?:%{NUMBER:bf.apache.access.response.bytes}|-)\\] \\[%{NUMBER:bf.apache.access.response.time_taken_to_serve_ms}\\] \\[(?:%{NOTSPACE:bf.apache.access.request.referer}|-)\\] \\[(?:%{GREEDYDATA:bf.apache.access.client.agent}|-)\\]",
+          "\\[%{HTTPDATE:bf.apache.access.timestamp}\\] \\[%{IPORHOST:bf.apache.access.client.host}\\] \\[%{IPORHOST:bf.apache.access.request.x_forwarded_for}\\] \\[%{DATA:bf.apache.access.client.remote_logname}\\] \\[%{DATA:bf.apache.access.client.remote_user}\\] \\[%{WORD:bf.apache.access.request.method}\\] \\[%{NOTSPACE:bf.apache.access.request.uri}\\] \\[%{DATA:bf.apache.access.http.version}\\] \\[%{NUMBER:bf.apache.access.http.status}\\] \\[%{NUMBER:bf.apache.access.response.bytes}\\] \\[%{NUMBER:bf.apache.access.response.time_taken_to_serve_ms}\\] \\[%{NOTSPACE:bf.apache.access.request.referer}\\] \\[%{GREEDYDATA:bf.apache.access.client.agent}\\]"
+        ],
+        "pattern_definitions": {
+          "ADDRESS_LIST": "(%{IP})(\"?,?\\s*(%{IP}))*"
+        }
+      }
+    },
+    {
+      "rename": {
+        "field": "@timestamp",
+        "target_field": "bf.apache.access.event.ingested"
+      }
+    },
+    {
+      "date": {
+        "field": "bf.apache.access.timestamp",
+        "formats": [
+          "dd/MMM/yyyy:HH:mm:ss Z"
+        ],
+        "target_field": "@timestamp"
+      }
+    },
+    {
+      "remove": {
+        "field": "bf.apache.access.timestamp"
+      }
+    },
+    {
+      "script": {
+        "lang": "painless",
+        "source": "void handleMap(Map map) {\n  for (def x : map.values()) {\n    if (x instanceof Map) {\n        handleMap(x);\n    } else if (x instanceof List) {\n        handleList(x);\n    }\n  }\n  map.values().removeIf(v -> v == null);\n}\nvoid handleList(List list) {\n  for (def x : list) {\n      if (x instanceof Map) {\n          handleMap(x);\n      } else if (x instanceof List) {\n          handleList(x);\n      }\n  }\n}\nhandleMap(ctx);\n"
+      }
+    }
+  ],
+  "on_failure": [
+    {
+      "set": {
+        "field": "error.message",
+        "value": "{{ _ingest.on_failure_message }}"
+      }
+    }
+  ]
+}

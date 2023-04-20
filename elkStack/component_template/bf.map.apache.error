@@ -1,0 +1,31 @@
+{
+  "template": {
+    "mappings": {
+      "numeric_detection": true,
+      "properties": {
+        "bf.apache.error": {
+          "properties": {
+            "event.ingested": {
+              "type": "date"
+            },
+            "event.client": {
+              "type": "ip"
+            },
+            "event.client_port": {
+              "type": "integer"
+            },
+            "event.level": {
+              "type": "keyword"
+            },
+            "event.pid": {
+              "type": "integer"
+            },
+            "event.subtype": {
+              "type": "keyword"
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,4 +1,24 @@
 # Logging to elasticsearch from apache
+## Apache config
+
+We need to make some modifications to the apache2.conf file and the sites-enabled/000-default.conf files to accomodate the indexing and pipelines
+elasticsearch is set up for.
+
+Apache2.conf:
+```conf
+ErrorLogFormat "[%{cu}t] [%-m:%l] [pid %P] [client\ %a] %M% ,\ referer\ %{Referer}i"
+LogFormat "%t [%{c}h] [%{X-Forwarded-For}i] [%l] [%u] [%m] [%U] [%H] [%>s] [%b] [%{ms}T] [%{Referer}i] [%{User-Agent}i]" combined
+```
+**Add** the ErrorLogFormat directive and **replace** the combined LogFormat with the lines above.
+
+
+sites-enabled/000-default.conf
+```conf
+        ErrorLog ${APACHE_LOG_DIR}/error.${HOSTNAME}.log
+        CustomLog ${APACHE_LOG_DIR}/access.${HOSTNAME}.log combined
+```
+Here we just modify the name of the logfiles produced, this prevents race-conditions if multiple apache instances try to write to the same logfile.
+
 ## Sending logs from a Docker swarm stack (IE set up with docker compose)
 There are multiple ways to do this, one way is to store the logs produced by apache to a shared network volume (for example a gluster volume) 
 and then run filebeat as one of the services on the stack. Most importantly we need to make sure the service can reach certain key files:

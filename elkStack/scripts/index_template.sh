@@ -41,3 +41,15 @@ curl -u $api_auth --cacert $ca \
 -X PUT "${api_index_template}/logs-bf.uc.log" \
 -H "Content-Type: application/json" \
 -d @$index_template/logs-bf.uc.log
+
+# logs-bf.apache.access
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_index_template}/logs-bf.apache.access" \
+-H "Content-Type: application/json" \
+-d @$index_template/logs-bf.apache.access
+
+# logs-bf.apache.error
+curl -u $api_auth --cacert $ca \
+-X PUT "${api_index_template}/logs-bf.apache.error" \
+-H "Content-Type: application/json" \
+-d @$index_template/logs-bf.apache.error
